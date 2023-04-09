@@ -1,12 +1,12 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
+    "id": "snifferplus",
     "version": "${version}",
   
-    "name": "Example Mod",
-    "description": "This is an example description! Tell everyone what your mod is about!",
+    "name": "Hellion's Sniffer+",
+    "description": "Basic improvements to the Sniffer from the 1.20 update.",
     "authors": [
-      "Me!"
+      "HellionGames"
     ],
     "contact": {
       "homepage": "https://fabricmc.net/",
@@ -19,17 +19,17 @@
     "environment": "*",
     "entrypoints": {
       "main": [
-        "com.example.examplemod.ExampleMod"
+        "com.helliongames.snifferplus.SnifferPlus"
       ]
     },
     "mixins": [
-      "modid.mixins.json"
+      "snifferplus.mixins.json"
     ],
   
     "depends": {
       "fabricloader": ">=0.14",
       "fabric": "*",
-      "minecraft": "1.19.3",
+      "minecraft": "1.20-alpha.23.14.a",
       "java": ">=17"
     },
     "suggests": {

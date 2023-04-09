@@ -16,5 +16,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'MultiLoader'
+rootProject.name = 'Sniffer+'
 include("Common", "Fabric", "Forge")

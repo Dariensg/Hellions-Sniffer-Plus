@@ -1,6 +1,6 @@
-package com.example.examplemod;
+package com.helliongames.snifferplus;
 
-import com.example.examplemod.platform.Services;
+import com.helliongames.snifferplus.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
 

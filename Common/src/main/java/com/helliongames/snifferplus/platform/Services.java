@@ -1,7 +1,7 @@
-package com.example.examplemod.platform;
+package com.helliongames.snifferplus.platform;
 
-import com.example.examplemod.Constants;
-import com.example.examplemod.platform.services.IPlatformHelper;
+import com.helliongames.snifferplus.Constants;
+import com.helliongames.snifferplus.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
 

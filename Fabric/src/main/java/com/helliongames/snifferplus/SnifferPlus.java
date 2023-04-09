@@ -1,8 +1,8 @@
-package com.example.examplemod;
+package com.helliongames.snifferplus;
 
 import net.fabricmc.api.ModInitializer;
 
-public class ExampleMod implements ModInitializer {
+public class SnifferPlus implements ModInitializer {
     
     @Override
     public void onInitialize() {

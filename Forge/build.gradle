@@ -8,7 +8,7 @@ plugins {
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
 minecraft {
-    mappings channel: 'official', version: minecraft_version
+    mappings channel: 'official', version: "1.19.3"
     
     if (project.hasProperty('forge_ats_enabled') && project.findProperty('forge_ats_enabled').toBoolean()) {
         // This location is hardcoded in Forge and can not be changed.
@@ -66,7 +66,7 @@ minecraft {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:1.19.3-${forge_version}"
     compileOnly project(":Common")
 }
 

@@ -1,6 +1,6 @@
-package com.example.examplemod.platform;
+package com.helliongames.snifferplus.platform;
 
-import com.example.examplemod.platform.services.IPlatformHelper;
+import com.helliongames.snifferplus.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformHelper implements IPlatformHelper {
