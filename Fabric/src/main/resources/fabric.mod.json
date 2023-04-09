@@ -23,7 +23,7 @@
       ]
     },
     "mixins": [
-      "snifferplus.mixins.json"
+      "snifferplus_fabric.mixins.json"
     ],
   
     "depends": {
