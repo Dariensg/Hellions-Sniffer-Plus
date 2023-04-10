@@ -22,9 +22,10 @@
         "com.helliongames.snifferplus.SnifferPlus"
       ]
     },
-    "mixins": [
-      "snifferplus_fabric.mixins.json"
-    ],
+  "mixins": [
+    "snifferplus.mixins.json",
+    "snifferplus_fabric.mixins.json"
+  ],
   
     "depends": {
       "fabricloader": ">=0.14",

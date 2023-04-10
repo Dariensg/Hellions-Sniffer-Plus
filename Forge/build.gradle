@@ -1,9 +1,23 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
 plugins {
     id 'java'
     id 'eclipse'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
+
+apply plugin: 'org.spongepowered.mixin'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
@@ -67,6 +81,9 @@ sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
     minecraft "net.minecraftforge:forge:1.19.3-${forge_version}"
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
     compileOnly project(":Common")
 }
 
@@ -78,6 +95,11 @@ processResources {
     from project(":Common").sourceSets.main.resources
 }
 
+mixin {
+    add project(":Common").sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
+    config "${mod_id}_forge.mixins.json"
+}
 
 jar.finalizedBy('reobfJar')
 
