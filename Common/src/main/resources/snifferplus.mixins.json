@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "snifferplus.refmap.json",
   "mixins": [
+    "MixinBlockStateBase"
   ],
   "injectors": {
     "defaultRequire": 1
