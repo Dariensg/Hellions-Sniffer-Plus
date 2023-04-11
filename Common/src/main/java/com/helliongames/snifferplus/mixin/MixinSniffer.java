@@ -1,10 +1,12 @@
 package com.helliongames.snifferplus.mixin;
 
 import com.helliongames.snifferplus.access.SnifferAccess;
+import com.helliongames.snifferplus.platform.Services;
 import com.helliongames.snifferplus.world.inventory.SnifferInventoryMenu;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +19,6 @@ import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.HorseInventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -54,7 +55,7 @@ public abstract class MixinSniffer extends Entity implements SnifferAccess, Cont
 
     public void openCustomInventoryScreen(Player player) {
         if (!this.level.isClientSide) {
-            player.openMenu(this);
+            Services.PACKET_HELPER.sendOpenSnifferScreenPacket((ServerPlayer) player, (Sniffer) (Object) this, this.inventory);
         }
     }
 

@@ -20,6 +20,9 @@
     "entrypoints": {
       "main": [
         "com.helliongames.snifferplus.SnifferPlus"
+      ],
+      "client": [
+        "com.helliongames.snifferplus.client.SnifferPlusClient"
       ]
     },
   "mixins": [
