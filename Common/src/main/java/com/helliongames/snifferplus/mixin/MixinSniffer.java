@@ -39,6 +39,11 @@ public abstract class MixinSniffer extends Entity implements SnifferAccess, Cont
         super($$0, $$1);
     }
 
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void snifferplus_createInventoryOnCreation(EntityType type, Level level, CallbackInfo ci) {
+        this.createInventory(true);
+    }
+
     @Inject(method = "mobInteract", at = @At("RETURN"), cancellable = true)
     private void snifferplus_equipChest(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
@@ -79,7 +84,7 @@ public abstract class MixinSniffer extends Entity implements SnifferAccess, Cont
         if (!player.getAbilities().instabuild) {
             itemStack.shrink(1);
         }
-        this.createInventory();
+        this.createInventory(false);
     }
 
     protected void playChestEquipsSound() {
@@ -87,7 +92,7 @@ public abstract class MixinSniffer extends Entity implements SnifferAccess, Cont
     }
 
     protected int getInventorySize() {
-        return 2;
+        return this.hasChest() ? 17 : 3;
     }
 
     @Override
@@ -95,9 +100,9 @@ public abstract class MixinSniffer extends Entity implements SnifferAccess, Cont
         return 5;
     }
 
-    protected void createInventory() {
+    protected void createInventory(boolean onSpawn) {
         SimpleContainer simpleContainer = this.inventory;
-        this.inventory = new SimpleContainer(this.getInventorySize());
+        this.inventory = new SimpleContainer(onSpawn ? 3 : this.getInventorySize());
         if (simpleContainer != null) {
             simpleContainer.removeListener(this);
             int i = Math.min(simpleContainer.getContainerSize(), this.inventory.getContainerSize());
