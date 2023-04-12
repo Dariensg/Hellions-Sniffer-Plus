@@ -1,5 +1,6 @@
 package com.helliongames.snifferplus.client.gui.screens.inventory;
 
+import com.helliongames.snifferplus.Constants;
 import com.helliongames.snifferplus.access.SnifferAccess;
 import com.helliongames.snifferplus.world.inventory.SnifferInventoryMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -11,7 +12,7 @@ import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Inventory;
 
 public class SnifferInventoryScreen extends AbstractContainerScreen<SnifferInventoryMenu> {
-    private static final ResourceLocation SNIFFER_INVENTORY_LOCATION = new ResourceLocation("textures/gui/container/horse.png");
+    private static final ResourceLocation SNIFFER_INVENTORY_LOCATION = new ResourceLocation(Constants.MOD_ID, "textures/gui/container/sniffer.png");
     private final Sniffer sniffer;
     private float xMouse;
     private float yMouse;
@@ -26,12 +27,22 @@ public class SnifferInventoryScreen extends AbstractContainerScreen<SnifferInven
         RenderSystem.setShaderTexture(0, SNIFFER_INVENTORY_LOCATION);
         int width = (this.width - this.imageWidth) / 2;
         int height = (this.height - this.imageHeight) / 2;
+
+        // Render inventory screen
         blit(stack, width, height, 0, 0, this.imageWidth, this.imageHeight);
+
+        // Render saddle space
+        blit(stack, width + 7, height + 16, 18, this.imageHeight + 72, 18, 18);
+
+        // Render sniffing space
+        blit(stack, width + 7, height + 34, 0, this.imageHeight + 72, 18, 18);
+
         if (((SnifferAccess) sniffer).hasChest()) {
-            blit(stack, width + 79, height + 17, 0, this.imageHeight, ((SnifferAccess) sniffer).getInventoryColumns() * 18, 54);
+            // Render chest inventory spaces
+            blit(stack, width + 79, height + 7, 0, this.imageHeight, ((SnifferAccess) sniffer).getInventoryColumns() * 18, 72);
         }
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(stack, width + 51, height + 60, 17, (float)(width + 51) - this.xMouse, (float)(height + 75 - 50) - this.yMouse, this.sniffer);
+        InventoryScreen.renderEntityInInventoryFollowsMouse(stack, width + 51, height + 55, 11, (float)(width + 51) - this.xMouse, (float)(height + 75 - 50) - this.yMouse, this.sniffer);
     }
 
     public void render(PoseStack stack, int $$1, int $$2, float $$3) {

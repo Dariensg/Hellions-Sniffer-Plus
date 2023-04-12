@@ -20,32 +20,33 @@ public class SnifferInventoryMenu extends AbstractContainerMenu {
         this.snifferContainer = snifferContainer;
         this.sniffer = sniffer;
         snifferContainer.startOpen(playerInventory.player);
-        this.addSlot(new Slot(snifferContainer, 0, 8, 18) {
-            public boolean mayPlace(@NotNull ItemStack $$0) {
-                return $$0.is(Items.SADDLE) && !this.hasItem();
+        this.addSlot(new Slot(snifferContainer, 0, 8, 17) {
+            public boolean mayPlace(@NotNull ItemStack stack) {
+                return stack.is(Items.SADDLE) && !this.hasItem();
             }
         });
-        this.addSlot(new Slot(snifferContainer, 1, 8, 36) {
+        this.addSlot(new Slot(snifferContainer, 1, 8, 35) {
             public int getMaxStackSize() {
                 return 1;
             }
         });
+
         if (this.hasChest(sniffer)) {
-            for(int $$6 = 0; $$6 < 3; ++$$6) {
-                for(int $$7 = 0; $$7 < ((SnifferAccess) sniffer).getInventoryColumns(); ++$$7) {
-                    this.addSlot(new Slot(snifferContainer, 2 + $$7 + $$6 * ((SnifferAccess) sniffer).getInventoryColumns(), 80 + $$7 * 18, 18 + $$6 * 18));
+            for(int i = 0; i < 4; ++i) {
+                for(int j = 0; j < ((SnifferAccess) sniffer).getInventoryColumns(); ++j) {
+                    this.addSlot(new Slot(snifferContainer, 2 + j + i * ((SnifferAccess) sniffer).getInventoryColumns(), 80 + j * 18, 8 + i * 18));
                 }
             }
         }
 
-        for(int $$8 = 0; $$8 < 3; ++$$8) {
-            for(int $$9 = 0; $$9 < 9; ++$$9) {
-                this.addSlot(new Slot(playerInventory, $$9 + $$8 * 9 + 9, 8 + $$9 * 18, 102 + $$8 * 18 + -18));
+        for(int i = 0; i < 3; ++i) {
+            for(int j = 0; j < 9; ++j) {
+                this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 102 + i * 18 + -18));
             }
         }
 
-        for(int $$10 = 0; $$10 < 9; ++$$10) {
-            this.addSlot(new Slot(playerInventory, $$10, 8 + $$10 * 18, 142));
+        for(int i = 0; i < 9; ++i) {
+            this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
 
     }
@@ -61,41 +62,42 @@ public class SnifferInventoryMenu extends AbstractContainerMenu {
     public ItemStack quickMoveStack(Player player, int slotNumber) {
         ItemStack stack = ItemStack.EMPTY;
         Slot slot = this.slots.get(slotNumber);
+
         if (slot.hasItem()) {
-            ItemStack $$4 = slot.getItem();
-            stack = $$4.copy();
-            int $$5 = this.snifferContainer.getContainerSize();
-            if (slotNumber < $$5) {
-                if (!this.moveItemStackTo($$4, $$5, this.slots.size(), true)) {
+            ItemStack stackInSlot = slot.getItem();
+            stack = stackInSlot.copy();
+            int size = this.snifferContainer.getContainerSize();
+            if (slotNumber < size) {
+                if (!this.moveItemStackTo(stackInSlot, size, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.getSlot(1).mayPlace($$4) && !this.getSlot(1).hasItem()) {
-                if (!this.moveItemStackTo($$4, 1, 2, false)) {
+            } else if (this.getSlot(1).mayPlace(stackInSlot) && !this.getSlot(1).hasItem()) {
+                if (!this.moveItemStackTo(stackInSlot, 1, 2, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.getSlot(0).mayPlace($$4)) {
-                if (!this.moveItemStackTo($$4, 0, 1, false)) {
+            } else if (this.getSlot(0).mayPlace(stackInSlot)) {
+                if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if ($$5 <= 2 || !this.moveItemStackTo($$4, 2, $$5, false)) {
-                int $$7 = $$5 + 27;
+            } else if (size <= 2 || !this.moveItemStackTo(stackInSlot, 2, size, false)) {
+                int $$7 = size + 27;
                 int $$9 = $$7 + 9;
                 if (slotNumber >= $$7 && slotNumber < $$9) {
-                    if (!this.moveItemStackTo($$4, $$5, $$7, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, size, $$7, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (slotNumber < $$7) {
-                    if (!this.moveItemStackTo($$4, $$7, $$9, false)) {
+                    if (!this.moveItemStackTo(stackInSlot, $$7, $$9, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (!this.moveItemStackTo($$4, $$7, $$7, false)) {
+                } else if (!this.moveItemStackTo(stackInSlot, $$7, $$7, false)) {
                     return ItemStack.EMPTY;
                 }
 
                 return ItemStack.EMPTY;
             }
 
-            if ($$4.isEmpty()) {
+            if (stackInSlot.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
