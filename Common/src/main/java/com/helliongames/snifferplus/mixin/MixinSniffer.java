@@ -1,28 +1,26 @@
 package com.helliongames.snifferplus.mixin;
 
+import com.helliongames.snifferplus.access.ServerPlayerAccess;
 import com.helliongames.snifferplus.access.SnifferAccess;
-import com.helliongames.snifferplus.platform.Services;
-import com.helliongames.snifferplus.world.inventory.SnifferInventoryMenu;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Saddleable;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -35,8 +33,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.function.Predicate;
+
 @Mixin(Sniffer.class)
-public abstract class MixinSniffer extends LivingEntity implements SnifferAccess, ContainerListener, MenuProvider {
+public abstract class MixinSniffer extends LivingEntity implements SnifferAccess, ContainerListener, HasCustomInventoryScreen, Saddleable {
     protected SimpleContainer inventory;
 
     private static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
@@ -122,15 +122,74 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     public void openCustomInventoryScreen(Player player) {
-        if (!this.level.isClientSide) {
-            Services.PACKET_HELPER.sendOpenSnifferScreenPacket((ServerPlayer) player, (Sniffer) (Object) this, this.inventory);
+        if (!this.level.isClientSide && (!this.isVehicle() || this.hasPassenger(player))) {
+            ((ServerPlayerAccess) player).openSnifferInventory((Sniffer) (Object) this, this.inventory);
         }
     }
 
-    @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int var1, Inventory var2, Player var3) {
-        return new SnifferInventoryMenu(var1, var2, this.inventory, (Sniffer) (Object) this);
+    public SlotAccess getSlot(int $$0) {
+
+        if ($$0 == 499) {
+            return new SlotAccess() {
+                public ItemStack get() {
+                    return MixinSniffer.this.hasChest() ? new ItemStack(Items.CHEST) : ItemStack.EMPTY;
+                }
+
+                public boolean set(ItemStack $$0) {
+                    if ($$0.isEmpty()) {
+                        if (MixinSniffer.this.hasChest()) {
+                            MixinSniffer.this.setChest(false);
+                            MixinSniffer.this.createInventory();
+                        }
+
+                        return true;
+                    } else if ($$0.is(Items.CHEST)) {
+                        if (!MixinSniffer.this.hasChest()) {
+                            MixinSniffer.this.setChest(true);
+                            MixinSniffer.this.createInventory();
+                        }
+
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            };
+        } else {
+
+            int $$1 = $$0 - 400;
+            if ($$1 >= 0 && $$1 < 2 && $$1 < this.inventory.getContainerSize()) {
+                if ($$1 == 0) {
+                    return this.createEquipmentSlotAccess($$1, ($$0x) -> $$0x.isEmpty() || $$0x.is(Items.SADDLE));
+                }
+
+                if ($$1 == 1) {
+                    return SlotAccess.NULL;
+                }
+            }
+
+            int $$2 = $$0 - 500 + 2;
+            return $$2 >= 2 && $$2 < this.inventory.getContainerSize() ? SlotAccess.forContainer(this.inventory, $$2) : super.getSlot($$0);
+        }
+    }
+
+    private SlotAccess createEquipmentSlotAccess(final int $$0, final Predicate<ItemStack> $$1) {
+        return new SlotAccess() {
+            public ItemStack get() {
+                return MixinSniffer.this.inventory.getItem($$0);
+            }
+
+            public boolean set(ItemStack $$0x) {
+                if (!$$1.test($$0x)) {
+                    return false;
+                } else {
+                    MixinSniffer.this.inventory.setItem($$0, $$0x);
+                    MixinSniffer.this.updateContainerEquipment();
+                    return true;
+                }
+            }
+        };
     }
 
     @Override
@@ -204,7 +263,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     protected int getInventorySize() {
-        return this.hasChest() ? 17 : 3;
+        return this.hasChest() ? 22 : 2;
     }
 
     @Override

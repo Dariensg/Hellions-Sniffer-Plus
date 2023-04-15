@@ -5,7 +5,6 @@
     "compatibilityLevel": "JAVA_17",
     "refmap": "snifferplus.refmap.json",
     "mixins": [
-        "MixinServerPlayer"
     ],
     "injectors": {
         "defaultRequire": 1

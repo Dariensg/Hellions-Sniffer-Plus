@@ -29,6 +29,11 @@ public class SnifferInventoryMenu extends AbstractContainerMenu {
             public int getMaxStackSize() {
                 return 1;
             }
+
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.is(Items.WHITE_BANNER);
+            }
         });
 
         if (this.hasChest(sniffer)) {
@@ -75,7 +80,7 @@ public class SnifferInventoryMenu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(stackInSlot, 1, 2, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.getSlot(0).mayPlace(stackInSlot)) {
+            } else if (this.getSlot(0).mayPlace(stackInSlot) && !this.getSlot(0).hasItem()) {
                 if (!this.moveItemStackTo(stackInSlot, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
