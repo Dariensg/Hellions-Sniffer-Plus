@@ -222,8 +222,14 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         this.entityData.set(HAS_CHEST, hasChest);
     }
 
+    @Override
     public boolean isSaddled() {
         return this.entityData.get(IS_SADDLED);
+    }
+
+    @Override
+    public boolean isSaddleable() {
+        return this.isAlive() && !this.isBaby();
     }
 
     protected void updateContainerEquipment() {
@@ -254,6 +260,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         this.createInventory();
     }
 
+    @Override
     public void equipSaddle(@Nullable SoundSource source) {
         this.inventory.setItem(0, new ItemStack(Items.SADDLE));
     }
