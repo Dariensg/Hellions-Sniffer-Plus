@@ -10,6 +10,7 @@
     "MixinSniffer"
   ],
   "client": [
+    "MixinSnifferRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
