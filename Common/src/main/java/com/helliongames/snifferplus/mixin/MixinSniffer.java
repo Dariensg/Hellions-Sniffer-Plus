@@ -14,11 +14,14 @@ import net.minecraft.world.Container;
 import net.minecraft.world.ContainerListener;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +29,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec2;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -57,7 +62,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     @Inject(method = "mobInteract", at = @At("RETURN"), cancellable = true)
-    private void snifferplus_equipChest(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+    private void snifferplus_addInteractions(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (player.isSecondaryUseActive()) {
             this.openCustomInventoryScreen(player);
@@ -66,6 +71,12 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
             if (!this.hasChest() && itemStack.is(Items.CHEST)) {
                 this.equipChest(player, itemStack);
                 cir.setReturnValue(InteractionResult.sidedSuccess(this.level.isClientSide));
+            }
+        } else {
+            if (!this.level.isClientSide) {
+                player.setYRot(this.getYRot());
+                player.setXRot(this.getXRot());
+                player.startRiding(this);
             }
         }
     }
@@ -84,6 +95,51 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
                 ci.cancel();
             }
         }
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() || (this.isVehicle() && this.isSaddled());
+    }
+
+    @Nullable
+    @Override
+    public LivingEntity getControllingPassenger() {
+        Entity firstPassenger = this.getFirstPassenger();
+
+        if (firstPassenger instanceof Mob) {
+            return (Mob) firstPassenger;
+        } else if (this.isSaddled() && firstPassenger instanceof Player) {
+            return (Player) firstPassenger;
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void tickRidden(Player $$0, Vec3 $$1) {
+        super.tickRidden($$0, $$1);
+        Vec2 $$2 = this.getRiddenRotation($$0);
+        this.setRot($$2.y, $$2.x);
+        this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+    }
+
+    protected Vec2 getRiddenRotation(LivingEntity rider) {
+        return new Vec2(rider.getXRot() * 0.5F, rider.getYRot());
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(Player player, Vec3 movement) {
+        float xAccel = player.xxa * 0.5F;
+        float zAccel = player.zza;
+        if (zAccel <= 0.0F) {
+            zAccel *= 0.25F;
+        }
+        return new Vec3(xAccel, 0.0D, zAccel);
+    }
+
+    protected float getRiddenSpeed(Player $$0) {
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED);
     }
 
     @Override
