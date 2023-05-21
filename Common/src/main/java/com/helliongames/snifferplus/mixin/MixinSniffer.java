@@ -19,6 +19,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HasCustomInventoryScreen;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PlayerRideableJumping;
 import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -135,11 +136,16 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         if (zAccel <= 0.0F) {
             zAccel *= 0.25F;
         }
-        return new Vec3(xAccel, 0.0D, zAccel);
+
+        float yAccel = this.isInWater() ? 0.5F : 0.0F;
+
+        return new Vec3(xAccel, yAccel, zAccel);
     }
 
-    protected float getRiddenSpeed(Player $$0) {
-        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED);
+    protected float getRiddenSpeed(Player player) {
+        float speedFactor = this.isInWater() ? 0.75F : 0.3F;
+
+        return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * speedFactor;
     }
 
     @Override
