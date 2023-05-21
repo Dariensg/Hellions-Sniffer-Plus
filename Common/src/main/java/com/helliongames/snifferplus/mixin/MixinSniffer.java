@@ -66,14 +66,14 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         ItemStack itemStack = player.getItemInHand(hand);
         if (player.isSecondaryUseActive()) {
             this.openCustomInventoryScreen(player);
-            cir.setReturnValue(InteractionResult.sidedSuccess(this.level.isClientSide));
+            cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
         } else if (!itemStack.isEmpty()) {
             if (!this.hasChest() && itemStack.is(Items.CHEST)) {
                 this.equipChest(player, itemStack);
-                cir.setReturnValue(InteractionResult.sidedSuccess(this.level.isClientSide));
+                cir.setReturnValue(InteractionResult.sidedSuccess(this.level().isClientSide));
             }
         } else {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 player.setYRot(this.getYRot());
                 player.setXRot(this.getXRot());
                 player.startRiding(this);
@@ -83,12 +83,12 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
 
     @Inject(method = "dropSeed", at = @At("HEAD"), cancellable = true)
     private void snifferplus_putSeedsInInventory(CallbackInfo ci) {
-        if (this.level.isClientSide() || this.entityData.get(DATA_DROP_SEED_AT_TICK) != this.tickCount) {
+        if (this.level().isClientSide() || this.entityData.get(DATA_DROP_SEED_AT_TICK) != this.tickCount) {
             return;
         }
 
         if (this.hasChest()) {
-            ItemStack itemStack = new ItemStack(this.level.random.nextBoolean() ? Items.PITCHER_POD : Items.TORCHFLOWER_SEEDS);
+            ItemStack itemStack = new ItemStack(this.level().random.nextBoolean() ? Items.PITCHER_POD : Items.TORCHFLOWER_SEEDS);
 
             if (this.inventory.addItem(itemStack).equals(ItemStack.EMPTY)) {
                 this.playSound(SoundEvents.SNIFFER_DROP_SEED, 1.0f, 1.0f);
@@ -197,7 +197,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     public void openCustomInventoryScreen(Player player) {
-        if (!this.level.isClientSide && (!this.isVehicle() || this.hasPassenger(player))) {
+        if (!this.level().isClientSide && (!this.isVehicle() || this.hasPassenger(player))) {
             ((ServerPlayerAccess) player).openSnifferInventory((Sniffer) (Object) this, this.inventory);
         }
     }
@@ -281,7 +281,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         }
 
         if (this.hasChest()) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.spawnAtLocation(Blocks.CHEST);
             }
 
@@ -308,7 +308,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     protected void updateContainerEquipment() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.entityData.set(IS_SADDLED, !this.inventory.getItem(0).isEmpty());
         }
     }
