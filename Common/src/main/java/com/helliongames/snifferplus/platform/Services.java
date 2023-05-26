@@ -3,6 +3,7 @@ package com.helliongames.snifferplus.platform;
 import com.helliongames.snifferplus.Constants;
 import com.helliongames.snifferplus.platform.services.IPacketHelper;
 import com.helliongames.snifferplus.platform.services.IPlatformHelper;
+import com.helliongames.snifferplus.platform.services.ISpawnPlacementHelper;
 
 import java.util.ServiceLoader;
 
@@ -17,6 +18,8 @@ public class Services {
     public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
 
     public static final IPacketHelper PACKET_HELPER = load(IPacketHelper.class);
+
+    public static final ISpawnPlacementHelper SPAWN_PLACEMENT_HELPER = load(ISpawnPlacementHelper.class);
 
     // This code is used to load a service for the current environment. Your implementation of the service must be defined
     // manually by including a text file in META-INF/services named with the fully qualified class name of the service.
