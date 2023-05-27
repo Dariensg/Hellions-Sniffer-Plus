@@ -26,6 +26,6 @@ public abstract class MixinOverworldBiomeBuilder {
 
     @Inject(method = "addUndergroundBiomes", at = @At("HEAD"))
     private void snifferplus_addTimelessGrotto(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> consumer, CallbackInfo ci) {
-        this.addUndergroundBiome(consumer, Climate.Parameter.span(0.0F, 1.0F), Climate.Parameter.span(0.6F, 0.9F), this.FULL_RANGE, Climate.Parameter.span(0.5F, 1.0F), this.FULL_RANGE, 0.0F, ResourceKey.create(Registries.BIOME, new ResourceLocation(Constants.MOD_ID, "timeless_grotto")));
+        this.addUndergroundBiome(consumer, Climate.Parameter.span(0.0F, 1.0F), Climate.Parameter.span(0.6F, 0.9F), this.FULL_RANGE, this.FULL_RANGE, this.FULL_RANGE, 0.0F, ResourceKey.create(Registries.BIOME, new ResourceLocation(Constants.MOD_ID, "timeless_grotto")));
     }
 }

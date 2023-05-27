@@ -33,7 +33,7 @@
     "creature": [
       {
         "type": "minecraft:sniffer",
-        "weight": 20,
+        "weight": 500,
         "minCount": 1,
         "maxCount": 2
       }
@@ -142,9 +142,7 @@
       "minecraft:ore_lapis_buried",
       "minecraft:ore_copper",
       "minecraft:underwater_magma",
-      "minecraft:ore_clay",
       "minecraft:disk_sand",
-      "minecraft:disk_clay",
       "minecraft:disk_gravel"
     ],
     [],
@@ -155,12 +153,8 @@
     [
       "minecraft:glow_lichen",
       "minecraft:patch_tall_grass_2",
-      "minecraft:lush_caves_ceiling_vegetation",
       "minecraft:cave_vines",
-      "minecraft:lush_caves_clay",
-      "minecraft:lush_caves_vegetation",
-      "minecraft:rooted_azalea_tree",
-      "minecraft:spore_blossom",
+      "snifferplus:timeless_grotto_vegetation",
       "minecraft:classic_vines_cave_feature"
     ],
     [
