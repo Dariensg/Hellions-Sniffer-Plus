@@ -7,12 +7,12 @@
     "ground_state": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:moss_block"
+        "Name": "minecraft:grass_block"
       }
     },
     "replaceable": "#minecraft:moss_replaceable",
     "surface": "floor",
-    "vegetation_chance": 0.8,
+    "vegetation_chance": 0.4,
     "vegetation_feature": {
       "feature": "snifferplus:timeless_grotto_vegetation",
       "placement": []
