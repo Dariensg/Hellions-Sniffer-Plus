@@ -6,6 +6,7 @@
   "refmap": "snifferplus.refmap.json",
   "mixins": [
     "MixinBlockStateBase",
+    "MixinLivingEntity",
     "MixinOverworldBiomeBuilder",
     "MixinServerPlayer",
     "MixinSniffer"

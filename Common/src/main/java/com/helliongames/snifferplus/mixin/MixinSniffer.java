@@ -1,13 +1,24 @@
 package com.helliongames.snifferplus.mixin;
 
+import com.google.common.base.Stopwatch;
 import com.helliongames.snifferplus.access.ServerPlayerAccess;
 import com.helliongames.snifferplus.access.SnifferAccess;
 import com.helliongames.snifferplus.world.SnifferContainer;
+import com.mojang.datafixers.util.Either;
+import com.mojang.datafixers.util.Pair;
+import net.minecraft.Util;
+import net.minecraft.commands.arguments.ResourceOrTagKeyArgument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -30,6 +41,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -41,6 +54,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Mixin(Sniffer.class)
@@ -49,7 +65,9 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     protected SnifferContainer inventory;
 
     private static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> HAS_SCENT_ITEM = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_SADDLED = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<BlockPos> SCENT_POS = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BLOCK_POS);
 
     protected MixinSniffer(EntityType<? extends LivingEntity> $$0, Level $$1) {
         super($$0, $$1);
@@ -58,7 +76,9 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     @Inject(method = "<init>", at = @At("RETURN"))
     private void snifferplus_createDataAndInventoryOnCreation(EntityType type, Level level, CallbackInfo ci) {
         this.entityData.define(HAS_CHEST, false);
+        this.entityData.define(HAS_SCENT_ITEM, false);
         this.entityData.define(IS_SADDLED, false);
+        this.entityData.define(SCENT_POS, BlockPos.ZERO);
         this.createInventory();
     }
 
@@ -100,12 +120,15 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
 
     @Override
     protected boolean isImmobile() {
-        return super.isImmobile() || (this.isVehicle() && this.isSaddled());
+        return super.isImmobile() || (this.isVehicle() && this.isSaddled() && !this.hasScentItem());
     }
 
     @Nullable
     @Override
     public LivingEntity getControllingPassenger() {
+
+        if (this.hasScentItem()) return null;
+
         Entity firstPassenger = this.getFirstPassenger();
 
         if (firstPassenger instanceof Mob) {
@@ -120,9 +143,12 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     @Override
     protected void tickRidden(Player $$0, Vec3 $$1) {
         super.tickRidden($$0, $$1);
-        Vec2 $$2 = this.getRiddenRotation($$0);
-        this.setRot($$2.y, $$2.x);
-        this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+
+        if (!this.hasScentItem()) {
+            Vec2 $$2 = this.getRiddenRotation($$0);
+            this.setRot($$2.y, $$2.x);
+            this.yRotO = this.yBodyRot = this.yHeadRot = this.getYRot();
+        }
     }
 
     protected Vec2 getRiddenRotation(LivingEntity rider) {
@@ -131,18 +157,26 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
 
     @Override
     protected Vec3 getRiddenInput(Player player, Vec3 movement) {
-        float xAccel = player.xxa * 0.5F;
-        float zAccel = player.zza;
-        if (zAccel <= 0.0F) {
-            zAccel *= 0.25F;
+        if (!this.hasScentItem()) {
+            float xAccel = player.xxa * 0.5F;
+            float zAccel = player.zza;
+            if (zAccel <= 0.0F) {
+                zAccel *= 0.25F;
+            }
+
+            float yAccel = this.isInWater() ? 0.5F : 0.0F;
+
+            return new Vec3(xAccel, yAccel, zAccel);
+        } else {
+            return movement;
         }
-
-        float yAccel = this.isInWater() ? 0.5F : 0.0F;
-
-        return new Vec3(xAccel, yAccel, zAccel);
     }
 
     protected float getRiddenSpeed(Player player) {
+        if (this.hasScentItem()) {
+            return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED);
+        }
+
         float speedFactor = this.isInWater() ? 0.75F : 0.3F;
 
         return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * speedFactor;
@@ -245,9 +279,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
                     return this.createEquipmentSlotAccess($$1, ($$0x) -> $$0x.isEmpty() || $$0x.is(Items.SADDLE));
                 }
 
-                if ($$1 == 1) {
-                    return SlotAccess.NULL;
-                }
+                return SlotAccess.NULL;
             }
 
             int $$2 = $$0 - 500 + 2;
@@ -303,6 +335,33 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         this.entityData.set(HAS_CHEST, hasChest);
     }
 
+    public boolean hasScentItem() {
+        return this.entityData.get(HAS_SCENT_ITEM);
+    }
+
+    private void setScentItem(boolean hasScentItem) {
+        this.entityData.set(HAS_SCENT_ITEM, hasScentItem);
+
+        if (hasScentItem) {
+            Registry<Structure> structureRegistry = this.level().registryAccess().registryOrThrow(Registries.STRUCTURE);
+            HolderSet<Structure> structure = HolderSet.direct(structureRegistry.getHolderOrThrow(BuiltinStructures.PILLAGER_OUTPOST));
+            ServerLevel level = (ServerLevel) this.level();
+            Pair<BlockPos, Holder<Structure>> posStructurePair = level.getChunkSource().getGenerator().findNearestMapStructure(level, structure, this.blockPosition(), 100, false);
+
+            if (posStructurePair != null) {
+                this.setScentPos(posStructurePair.getFirst());
+            }
+        }
+    }
+
+    public BlockPos getScentPos() {
+        return this.entityData.get(SCENT_POS);
+    }
+
+    public void setScentPos(BlockPos pos) {
+        this.entityData.set(SCENT_POS, pos);
+    }
+
     @Override
     public boolean isSaddled() {
         return this.entityData.get(IS_SADDLED);
@@ -316,6 +375,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     protected void updateContainerEquipment() {
         if (!this.level().isClientSide) {
             this.entityData.set(IS_SADDLED, !this.inventory.getItem(0).isEmpty());
+            this.setScentItem(!this.inventory.getItem(1).isEmpty());
         }
     }
 
