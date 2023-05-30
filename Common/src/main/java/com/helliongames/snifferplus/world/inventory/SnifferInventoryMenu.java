@@ -5,6 +5,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +33,7 @@ public class SnifferInventoryMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return stack.is(Items.WHITE_BANNER);
+                return ItemStack.matches(stack, Raid.getLeaderBannerInstance());
             }
         });
 
