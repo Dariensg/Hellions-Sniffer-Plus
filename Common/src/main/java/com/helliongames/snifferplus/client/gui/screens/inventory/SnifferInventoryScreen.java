@@ -4,7 +4,6 @@ import com.helliongames.snifferplus.Constants;
 import com.helliongames.snifferplus.access.SnifferAccess;
 import com.helliongames.snifferplus.world.inventory.SnifferInventoryMenu;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;

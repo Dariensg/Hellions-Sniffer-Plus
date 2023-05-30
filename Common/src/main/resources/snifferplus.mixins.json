@@ -9,7 +9,8 @@
     "MixinLivingEntity",
     "MixinOverworldBiomeBuilder",
     "MixinServerPlayer",
-    "MixinSniffer"
+    "MixinSniffer",
+    "MixinSnifferAi"
   ],
   "client": [
     "MixinSnifferRenderer"
