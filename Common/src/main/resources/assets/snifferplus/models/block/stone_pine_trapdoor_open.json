@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/template_trapdoor_open",
+  "parent": "snifferplus:block/template_orientable_trapdoor_open_hinged",
   "textures": {
     "texture": "snifferplus:block/stone_pine_trapdoor"
   }
