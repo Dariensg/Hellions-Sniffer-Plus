@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "snifferplus:block/stripped_stone_pine_log_top",
+    "side": "snifferplus:block/stripped_stone_pine_log"
+  }
+}

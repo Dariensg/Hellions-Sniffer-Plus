@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "snifferplus:block/stone_pine_planks"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "snifferplus:block/stone_pine_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "snifferplus:block/stone_pine_log"
+    },
+    "axis=z": {
+      "model": "snifferplus:block/stone_pine_log_horizontal",
+      "x": 90
+    }
+  }
+}

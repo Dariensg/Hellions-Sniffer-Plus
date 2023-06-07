@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "snifferplus:block/stone_pine_log",
+    "side": "snifferplus:block/stone_pine_log"
+  }
+}

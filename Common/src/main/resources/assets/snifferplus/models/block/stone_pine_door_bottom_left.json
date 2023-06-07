@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left",
+  "textures": {
+    "bottom": "snifferplus:block/stone_pine_door_bottom",
+    "top": "snifferplus:block/stone_pine_door_top"
+  }
+}

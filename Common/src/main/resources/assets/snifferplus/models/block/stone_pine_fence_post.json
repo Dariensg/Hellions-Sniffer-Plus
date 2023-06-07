@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "snifferplus:block/stone_pine_planks"
+  }
+}

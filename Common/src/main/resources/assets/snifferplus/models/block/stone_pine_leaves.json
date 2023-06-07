@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "snifferplus:block/stone_pine_leaves"
+  }
+}

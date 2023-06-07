@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "snifferplus:block/stone_pine_planks",
+    "side": "snifferplus:block/stone_pine_planks",
+    "top": "snifferplus:block/stone_pine_planks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "snifferplus:block/stone_pine_slab"
+    },
+    "type=double": {
+      "model": "snifferplus:block/stone_pine_planks"
+    },
+    "type=top": {
+      "model": "snifferplus:block/stone_pine_slab_top"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "snifferplus:block/stone_pine_pressure_plate"
+    },
+    "powered=true": {
+      "model": "snifferplus:block/stone_pine_pressure_plate_down"
+    }
+  }
+}
