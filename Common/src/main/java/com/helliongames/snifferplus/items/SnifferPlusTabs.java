@@ -35,6 +35,9 @@ public class SnifferPlusTabs {
             output.accept(SnifferPlusItems.STONE_PINE_CHEST_BOAT);
             output.accept(SnifferPlusItems.STONE_PINE_LEAVES);
             output.accept(SnifferPlusItems.STONE_PINE_SAPLING);
+            output.accept(SnifferPlusItems.IVY);
+            output.accept(SnifferPlusItems.FIDDLEFERN);
+            output.accept(SnifferPlusItems.TALL_FIDDLEFERN);
         }).build());
     }
 

@@ -6,6 +6,7 @@ import com.helliongames.snifferplus.mixin.DoorBlockAccessor;
 import com.helliongames.snifferplus.mixin.PressurePlateBlockAccessor;
 import com.helliongames.snifferplus.mixin.SaplingBlockAccessor;
 import com.helliongames.snifferplus.mixin.StairBlockAccessor;
+import com.helliongames.snifferplus.mixin.TallGrassBlockAccessor;
 import com.helliongames.snifferplus.mixin.TrapDoorBlockAccessor;
 import com.helliongames.snifferplus.world.level.block.grower.StonePineTreeGrower;
 import net.minecraft.core.Registry;
@@ -14,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -59,6 +61,9 @@ public class SnifferPlusBlocks {
 
     public static final IvyBodyBlock IVY_BODY = (IvyBodyBlock) registerBlock("ivy_body", new IvyBodyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
     public static final IvyHeadBlock IVY_HEAD = (IvyHeadBlock) registerBlock("ivy_head", new IvyHeadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final Block FIDDLEFERN = registerBlock("fiddlefern", TallGrassBlockAccessor.createTallGrassBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+    public static final Block TALL_FIDDLEFERN = registerBlock("tall_fiddlefern", new DoublePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).replaceable().noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).ignitedByLava().pushReaction(PushReaction.DESTROY)));
+
 
     private static Block registerBlock(String identifier, Block block) {
         blocks.put(new ResourceLocation(Constants.MOD_ID, identifier), block);

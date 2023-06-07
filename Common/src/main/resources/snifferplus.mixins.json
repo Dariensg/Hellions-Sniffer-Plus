@@ -15,9 +15,11 @@
     "MixinServerPlayer",
     "MixinSniffer",
     "MixinSnifferAi",
+    "MixinTallGrassBlock",
     "PressurePlateBlockAccessor",
     "SaplingBlockAccessor",
     "StairBlockAccessor",
+    "TallGrassBlockAccessor",
     "TrapDoorBlockAccessor"
   ],
   "client": [

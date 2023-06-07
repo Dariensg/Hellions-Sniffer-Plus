@@ -8,13 +8,13 @@
           "data": {
             "Name": "minecraft:moss_carpet"
           },
-          "weight": 30
+          "weight": 60
         },
         {
           "data": {
             "Name": "minecraft:grass"
           },
-          "weight": 60
+          "weight": 120
         },
         {
           "data": {
@@ -23,7 +23,22 @@
               "half": "lower"
             }
           },
-          "weight": 15
+          "weight": 30
+        },
+        {
+          "data": {
+            "Name": "snifferplus:fiddlefern"
+          },
+          "weight": 20
+        },
+        {
+          "data": {
+            "Name": "snifferplus:tall_fiddlefern",
+            "Properties": {
+              "half": "lower"
+            }
+          },
+          "weight": 10
         },
         {
           "data": {
@@ -32,13 +47,19 @@
               "half": "lower"
             }
           },
-          "weight": 1
+          "weight": 2
         },
         {
           "data": {
             "Name": "minecraft:torchflower"
           },
-          "weight": 2
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "snifferplus:stone_pine_sapling"
+          },
+          "weight": 1
         }
       ]
     }

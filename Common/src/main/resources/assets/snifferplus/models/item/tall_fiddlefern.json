@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "snifferplus:block/ivy_body"
+    "layer0": "snifferplus:block/tall_fiddlefern_top"
   }
 }

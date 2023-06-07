@@ -1,7 +1,10 @@
 package com.helliongames.snifferplus.blocks;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.GrowingPlantHeadBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,5 +30,12 @@ public class IvyHeadBlock extends GrowingPlantHeadBlock {
     @Override
     protected Block getBodyBlock() {
         return SnifferPlusBlocks.IVY_BODY;
+    }
+
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        BlockPos blockPos2 = pos.relative(this.growthDirection.getOpposite());
+        BlockState blockState2 = level.getBlockState(blockPos2);
+        return super.canSurvive(state, level, pos) || blockState2.is(BlockTags.LEAVES);
     }
 }

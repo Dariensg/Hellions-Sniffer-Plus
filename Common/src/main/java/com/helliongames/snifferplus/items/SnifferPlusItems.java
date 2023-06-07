@@ -40,6 +40,8 @@ public class SnifferPlusItems {
     public static final Item STONE_PINE_CHEST_BOAT = registerItem("stone_pine_chest_boat", new StonePineBoatItem(true, new Item.Properties().stacksTo(1)));
 
     public static final Item IVY = registerItem("ivy", new ItemNameBlockItem(SnifferPlusBlocks.IVY_HEAD, new Item.Properties()));
+    public static final Item FIDDLEFERN = registerItem("fiddlefern", new BlockItem(SnifferPlusBlocks.FIDDLEFERN, new Item.Properties()));
+    public static final Item TALL_FIDDLEFERN = registerItem("tall_fiddlefern", new BlockItem(SnifferPlusBlocks.TALL_FIDDLEFERN, new Item.Properties()));
 
     private static Item registerItem(String identifier, Item item) {
         items.put(new ResourceLocation(Constants.MOD_ID, identifier), item);

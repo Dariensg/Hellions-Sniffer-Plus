@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "snifferplus:block/tall_fiddlefern_bottom"
+    },
+    "half=upper": {
+      "model": "snifferplus:block/tall_fiddlefern_top"
+    }
+  }
+}

@@ -5,6 +5,7 @@
     "force_dirt": false,
     "minimum_size": {
       "type": "minecraft:two_layers_feature_size",
+      "min_clipped_height": 3,
       "limit": 1,
       "lower_size": 0,
       "upper_size": 1
