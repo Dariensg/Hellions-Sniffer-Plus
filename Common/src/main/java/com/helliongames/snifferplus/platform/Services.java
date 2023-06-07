@@ -2,6 +2,7 @@ package com.helliongames.snifferplus.platform;
 
 import com.helliongames.snifferplus.Constants;
 import com.helliongames.snifferplus.platform.services.IBlockSetTypeHelper;
+import com.helliongames.snifferplus.platform.services.IClientHelper;
 import com.helliongames.snifferplus.platform.services.IPacketHelper;
 import com.helliongames.snifferplus.platform.services.IPlatformHelper;
 import com.helliongames.snifferplus.platform.services.ISpawnPlacementHelper;
@@ -20,6 +21,8 @@ public class Services {
     public static final IBlockSetTypeHelper BLOCK_SET_TYPE_HELPER = load(IBlockSetTypeHelper.class);
 
     public static final IWoodTypeHelper WOOD_TYPE_HELPER = load(IWoodTypeHelper.class);
+
+    public static final IClientHelper CLIENT_HELPER = load(IClientHelper.class);
 
     public static <T> T load(Class<T> clazz) {
 

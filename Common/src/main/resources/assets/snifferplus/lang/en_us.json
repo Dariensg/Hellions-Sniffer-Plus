@@ -20,6 +20,9 @@
   "item.snifferplus.stone_pine_boat": "Stone Pine Boat",
   "item.snifferplus.stone_pine_chest_boat": "Stone Pine Chest Boat",
 
+  "entity.snifferplus.stone_pine_boat": "Stone Pine Boat",
+  "entity.snifferplus.stone_pine_chest_boat": "Stone Pine Chest Boat",
+
   "biome.snifferplus.timeless_grotto": "Timeless Grotto",
 
   "itemGroup.sniffer_plus_tab": "Sniffer+"

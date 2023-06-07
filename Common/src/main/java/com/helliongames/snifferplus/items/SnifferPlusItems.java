@@ -5,9 +5,7 @@ import com.helliongames.snifferplus.blocks.SnifferPlusBlocks;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.DoubleHighBlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
@@ -37,8 +35,8 @@ public class SnifferPlusItems {
     public static final Item STONE_PINE_FENCE = registerItem("stone_pine_fence", new BlockItem(SnifferPlusBlocks.STONE_PINE_FENCE, new Item.Properties()));
     public static final Item STONE_PINE_FENCE_GATE = registerItem("stone_pine_fence_gate", new BlockItem(SnifferPlusBlocks.STONE_PINE_FENCE_GATE, new Item.Properties()));
     public static final Item POTTED_STONE_PINE_SAPLING = registerItem("potted_stone_pine_sapling", new BlockItem(SnifferPlusBlocks.POTTED_STONE_PINE_SAPLING, new Item.Properties()));
-    public static final Item STONE_PINE_BOAT = registerItem("stone_pine_boat", new BoatItem(false, Boat.Type.OAK, new Item.Properties().stacksTo(1)));
-    public static final Item STONE_PINE_CHEST_BOAT = registerItem("stone_pine_chest_boat", new BoatItem(true, Boat.Type.OAK, new Item.Properties().stacksTo(1)));
+    public static final Item STONE_PINE_BOAT = registerItem("stone_pine_boat", new StonePineBoatItem(false, new Item.Properties().stacksTo(1)));
+    public static final Item STONE_PINE_CHEST_BOAT = registerItem("stone_pine_chest_boat", new StonePineBoatItem(true, new Item.Properties().stacksTo(1)));
 
     private static Item registerItem(String identifier, Item item) {
         items.put(new ResourceLocation(Constants.MOD_ID, identifier), item);

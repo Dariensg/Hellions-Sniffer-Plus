@@ -9,6 +9,7 @@
     "DoorBlockAccessor",
     "MixinBlockEntityType",
     "MixinBlockStateBase",
+    "MixinBoat",
     "MixinLivingEntity",
     "MixinOverworldBiomeBuilder",
     "MixinServerPlayer",
