@@ -18,6 +18,8 @@ public class CommonClass {
         SnifferPlusTabs.register();
         SnifferPlusEntities.register();
 
+        Services.STRIPPABLE_BLOCK_HELPER.registerStrippableBlock(SnifferPlusBlocks.STONE_PINE_LOG, SnifferPlusBlocks.STRIPPED_STONE_PINE_LOG);
+        Services.STRIPPABLE_BLOCK_HELPER.registerStrippableBlock(SnifferPlusBlocks.STONE_PINE_WOOD, SnifferPlusBlocks.STRIPPED_STONE_PINE_WOOD);
         Services.SPAWN_PLACEMENT_HELPER.register(EntityType.SNIFFER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
     }
 }
