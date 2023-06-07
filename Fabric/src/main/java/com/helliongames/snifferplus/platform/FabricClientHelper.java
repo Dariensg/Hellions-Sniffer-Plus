@@ -37,7 +37,7 @@ public class FabricClientHelper implements IClientHelper {
 
     @Override
     public void registerRenderTypes() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), SnifferPlusBlocks.POTTED_STONE_PINE_SAPLING, SnifferPlusBlocks.STONE_PINE_SAPLING, SnifferPlusBlocks.STONE_PINE_DOOR, SnifferPlusBlocks.STONE_PINE_TRAPDOOR);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), SnifferPlusBlocks.POTTED_STONE_PINE_SAPLING, SnifferPlusBlocks.STONE_PINE_SAPLING, SnifferPlusBlocks.STONE_PINE_DOOR, SnifferPlusBlocks.STONE_PINE_TRAPDOOR, SnifferPlusBlocks.IVY_BODY, SnifferPlusBlocks.IVY_HEAD);
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutoutMipped(), SnifferPlusBlocks.STONE_PINE_LEAVES);
     }
 

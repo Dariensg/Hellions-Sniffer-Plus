@@ -7,6 +7,7 @@ import com.helliongames.snifferplus.mixin.PressurePlateBlockAccessor;
 import com.helliongames.snifferplus.mixin.SaplingBlockAccessor;
 import com.helliongames.snifferplus.mixin.StairBlockAccessor;
 import com.helliongames.snifferplus.mixin.TrapDoorBlockAccessor;
+import com.helliongames.snifferplus.world.level.block.grower.StonePineTreeGrower;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -24,10 +25,10 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
-import net.minecraft.world.level.block.grower.OakTreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class SnifferPlusBlocks {
     private static final Map<ResourceLocation, Block> blocks = new HashMap<>();
 
     public static final Block STONE_PINE_PLANKS = registerBlock("stone_pine_planks", new Block(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.0f, 3.0f).sound(SoundType.WOOD).ignitedByLava()));
-    public static final Block STONE_PINE_SAPLING = registerBlock("stone_pine_sapling", SaplingBlockAccessor.createSaplingBlock(new OakTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
+    public static final Block STONE_PINE_SAPLING = registerBlock("stone_pine_sapling", SaplingBlockAccessor.createSaplingBlock(new StonePineTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
     public static final Block STONE_PINE_LOG = registerBlock("stone_pine_log", new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).instrument(NoteBlockInstrument.BASS).strength(2.0f).sound(SoundType.WOOD).ignitedByLava()));
     public static final Block STRIPPED_STONE_PINE_LOG = registerBlock("stripped_stone_pine_log", new RotatedPillarBlock(BlockBehaviour.Properties.copy(STONE_PINE_LOG)));
     public static final Block STONE_PINE_WOOD = registerBlock("stone_pine_wood", new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.OAK_WOOD)));
@@ -55,6 +56,9 @@ public class SnifferPlusBlocks {
     public static final Block STONE_PINE_FENCE = registerBlock("stone_pine_fence", new FenceBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE)));
     public static final Block STONE_PINE_FENCE_GATE = registerBlock("stone_pine_fence_gate", new FenceGateBlock(BlockBehaviour.Properties.copy(Blocks.OAK_FENCE_GATE), SnifferPlusWoodTypes.STONE_PINE));
     public static final Block POTTED_STONE_PINE_SAPLING = registerBlock("potted_stone_pine_sapling", new FlowerPotBlock(STONE_PINE_SAPLING, BlockBehaviour.Properties.copy(Blocks.POTTED_OAK_SAPLING)));
+
+    public static final IvyBodyBlock IVY_BODY = (IvyBodyBlock) registerBlock("ivy_body", new IvyBodyBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
+    public static final IvyHeadBlock IVY_HEAD = (IvyHeadBlock) registerBlock("ivy_head", new IvyHeadBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).randomTicks().noCollission().instabreak().sound(SoundType.CAVE_VINES).pushReaction(PushReaction.DESTROY)));
 
     private static Block registerBlock(String identifier, Block block) {
         blocks.put(new ResourceLocation(Constants.MOD_ID, identifier), block);
