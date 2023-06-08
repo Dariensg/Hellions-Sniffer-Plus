@@ -66,6 +66,8 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
 
     @Shadow protected abstract BlockPos getHeadBlock();
 
+    @Shadow protected abstract Sniffer.State getState();
+
     protected SnifferContainer inventory;
 
     private static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
@@ -137,6 +139,13 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     @Inject(method = "brainProvider", at = @At("HEAD"), cancellable = true)
     private void snifferplus_replaceBrainProvider(CallbackInfoReturnable<Brain.Provider<Sniffer>> cir) {
         cir.setReturnValue(Brain.provider(MEMORY_TYPES, SENSOR_TYPES));
+    }
+
+    @Inject(method = "getPassengersRidingOffset", at = @At("HEAD"), cancellable = true)
+    private void snifferplus_getRidingOffsetDigging(CallbackInfoReturnable<Double> cir) {
+        if (this.getState().equals(Sniffer.State.DIGGING)) {
+            cir.setReturnValue(1.3D);
+        }
     }
 
     @Override
