@@ -9,12 +9,11 @@
       "HellionGames"
     ],
     "contact": {
-      "homepage": "https://fabricmc.net/",
-      "sources": "https://github.com/FabricMC/fabric-example-mod"
+      "sources": "https://github.com/Dariensg/Hellions-Sniffer-Plus"
     },
   
-    "license": "CC0-1.0",
-    "icon": "assets/modid/icon.png",
+    "license": "Apache-2.0",
+    "icon": "assets/snifferplus/icon.png",
   
     "environment": "*",
     "entrypoints": {
@@ -35,9 +34,6 @@
       "fabric": "*",
       "minecraft": "1.20.x",
       "java": ">=17"
-    },
-    "suggests": {
-      "another-mod": "*"
     }
   }
   
