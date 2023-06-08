@@ -3,7 +3,7 @@ package com.helliongames.snifferplus.mixin;
 import com.google.common.collect.ImmutableList;
 import com.helliongames.snifferplus.access.SnifferAccess;
 import com.helliongames.snifferplus.entity.schedule.SnifferOutpostBehavior;
-import com.helliongames.snifferplus.entity.schedule.SnifferPlusMemoryModules;
+import com.helliongames.snifferplus.registration.SnifferPlusMemoryModules;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
@@ -57,16 +57,16 @@ public abstract class MixinSnifferAi {
 
     @Redirect(method = "initSniffingActivity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/Brain;addActivityWithConditions(Lnet/minecraft/world/entity/schedule/Activity;Lcom/google/common/collect/ImmutableList;Ljava/util/Set;)V"))
     private static void snifferplus_initSniffingActivity(Brain brain, Activity activity, ImmutableList<? extends Pair<Integer, ? extends BehaviorControl<?>>> immutableList, Set<Pair<MemoryModuleType<?>, MemoryStatus>> set) {
-        brain.addActivityWithConditions(activity, immutableList, Set.of(Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT), Pair.of(MemoryModuleType.SNIFFER_SNIFFING_TARGET, MemoryStatus.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_PRESENT), Pair.of(SnifferPlusMemoryModules.OUTPOST_LOCATION, MemoryStatus.VALUE_ABSENT)));
+        brain.addActivityWithConditions(activity, immutableList, Set.of(Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT), Pair.of(MemoryModuleType.SNIFFER_SNIFFING_TARGET, MemoryStatus.VALUE_PRESENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_PRESENT), Pair.of(SnifferPlusMemoryModules.OUTPOST_LOCATION.get(), MemoryStatus.VALUE_ABSENT)));
     }
 
     @Redirect(method = "initDigActivity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/Brain;addActivityWithConditions(Lnet/minecraft/world/entity/schedule/Activity;Lcom/google/common/collect/ImmutableList;Ljava/util/Set;)V"))
     private static void snifferplus_initDigActivity(Brain brain, Activity activity, ImmutableList<? extends Pair<Integer, ? extends BehaviorControl<?>>> immutableList, Set<Pair<MemoryModuleType<?>, MemoryStatus>> set) {
-        brain.addActivityWithConditions(activity, immutableList, Set.of(Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), Pair.of(MemoryModuleType.SNIFFER_DIGGING, MemoryStatus.VALUE_PRESENT), Pair.of(SnifferPlusMemoryModules.OUTPOST_LOCATION, MemoryStatus.VALUE_ABSENT)));
+        brain.addActivityWithConditions(activity, immutableList, Set.of(Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT), Pair.of(MemoryModuleType.WALK_TARGET, MemoryStatus.VALUE_ABSENT), Pair.of(MemoryModuleType.SNIFFER_DIGGING, MemoryStatus.VALUE_PRESENT), Pair.of(SnifferPlusMemoryModules.OUTPOST_LOCATION.get(), MemoryStatus.VALUE_ABSENT)));
     }
 
     @Redirect(method = "initIdleActivity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/Brain;addActivityWithConditions(Lnet/minecraft/world/entity/schedule/Activity;Lcom/google/common/collect/ImmutableList;Ljava/util/Set;)V"))
     private static void snifferplus_initIdleActivity(Brain brain, Activity activity, ImmutableList<? extends Pair<Integer, ? extends BehaviorControl<?>>> immutableList, Set<Pair<MemoryModuleType<?>, MemoryStatus>> set) {
-        brain.addActivityWithConditions(activity, immutableList, Set.of(Pair.of(MemoryModuleType.SNIFFER_DIGGING, MemoryStatus.VALUE_ABSENT), Pair.of(SnifferPlusMemoryModules.OUTPOST_LOCATION, MemoryStatus.VALUE_ABSENT)));
+        brain.addActivityWithConditions(activity, immutableList, Set.of(Pair.of(MemoryModuleType.SNIFFER_DIGGING, MemoryStatus.VALUE_ABSENT), Pair.of(SnifferPlusMemoryModules.OUTPOST_LOCATION.get(), MemoryStatus.VALUE_ABSENT)));
     }
 }

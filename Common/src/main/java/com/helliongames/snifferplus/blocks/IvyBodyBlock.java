@@ -1,5 +1,6 @@
 package com.helliongames.snifferplus.blocks;
 
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -19,7 +20,7 @@ public class IvyBodyBlock extends GrowingPlantBodyBlock {
 
     @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
-        return SnifferPlusBlocks.IVY_HEAD;
+        return SnifferPlusBlocks.IVY_HEAD.get();
     }
 
     @Override

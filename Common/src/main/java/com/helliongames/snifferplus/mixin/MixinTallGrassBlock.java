@@ -1,6 +1,6 @@
 package com.helliongames.snifferplus.mixin;
 
-import com.helliongames.snifferplus.blocks.SnifferPlusBlocks;
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinTallGrassBlock {
     @Inject(method = "performBonemeal", at = @At("HEAD"), cancellable = true)
     private void snifferplus_performFiddlefernBonemeal(ServerLevel level, RandomSource rand, BlockPos pos, BlockState state, CallbackInfo ci) {
-        if (state.is(SnifferPlusBlocks.FIDDLEFERN)) {
-            DoublePlantBlock.placeAt(level, SnifferPlusBlocks.TALL_FIDDLEFERN.defaultBlockState(), pos, 2);
+        if (state.is(SnifferPlusBlocks.FIDDLEFERN.get())) {
+            DoublePlantBlock.placeAt(level, SnifferPlusBlocks.TALL_FIDDLEFERN.get().defaultBlockState(), pos, 2);
             ci.cancel();
         }
     }

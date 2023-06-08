@@ -1,6 +1,6 @@
 package com.helliongames.snifferplus.mixin;
 
-import com.helliongames.snifferplus.blocks.SnifferPlusBlocks;
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.world.item.BlockItem;
@@ -23,6 +23,6 @@ public class MixinItemColors {
         itemColors.register((itemStack, i) -> {
             BlockState blockState = ((BlockItem)itemStack.getItem()).getBlock().defaultBlockState();
             return blockColors.getColor(blockState, null, null, i);
-        }, SnifferPlusBlocks.STONE_PINE_LEAVES);
+        }, SnifferPlusBlocks.STONE_PINE_LEAVES.get());
     }
 }

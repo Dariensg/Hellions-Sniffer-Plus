@@ -1,6 +1,7 @@
 package com.helliongames.snifferplus.entity;
 
-import com.helliongames.snifferplus.items.SnifferPlusItems;
+import com.helliongames.snifferplus.registration.SnifferPlusEntities;
+import com.helliongames.snifferplus.registration.SnifferPlusItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -37,7 +38,7 @@ public class StonePineChestBoat extends StonePineBoat implements HasCustomInvent
     }
 
     public StonePineChestBoat(Level level, double x, double y, double z) {
-        this(SnifferPlusEntities.STONE_PINE_CHEST_BOAT, level);
+        this(SnifferPlusEntities.STONE_PINE_CHEST_BOAT.get(), level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -104,7 +105,7 @@ public class StonePineChestBoat extends StonePineBoat implements HasCustomInvent
 
     @Override
     public Item getDropItem() {
-        return SnifferPlusItems.STONE_PINE_CHEST_BOAT;
+        return SnifferPlusItems.STONE_PINE_CHEST_BOAT.get();
     }
 
     @Override

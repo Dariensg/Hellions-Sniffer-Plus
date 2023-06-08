@@ -1,11 +1,11 @@
 package com.helliongames.snifferplus.platform;
 
-import com.helliongames.snifferplus.blocks.SnifferPlusBlocks;
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import com.helliongames.snifferplus.client.gui.screens.inventory.SnifferInventoryScreen;
 import com.helliongames.snifferplus.client.model.SnifferPlusModelLayers;
 import com.helliongames.snifferplus.client.renderer.entity.StonePineBoatRenderer;
 import com.helliongames.snifferplus.client.renderer.entity.layers.SnifferSaddleLayer;
-import com.helliongames.snifferplus.entity.SnifferPlusEntities;
+import com.helliongames.snifferplus.registration.SnifferPlusEntities;
 import com.helliongames.snifferplus.network.ClientboundSnifferScreenOpenPacket;
 import com.helliongames.snifferplus.platform.services.IClientHelper;
 import com.helliongames.snifferplus.world.inventory.SnifferInventoryMenu;
@@ -25,8 +25,8 @@ public class FabricClientHelper implements IClientHelper {
 
     @Override
     public void registerEntityRenderers() {
-        EntityRendererRegistry.register(SnifferPlusEntities.STONE_PINE_BOAT, (context) -> new StonePineBoatRenderer(context, false));
-        EntityRendererRegistry.register(SnifferPlusEntities.STONE_PINE_CHEST_BOAT, (context) -> new StonePineBoatRenderer(context, true));
+        EntityRendererRegistry.register(SnifferPlusEntities.STONE_PINE_BOAT.get(), (context) -> new StonePineBoatRenderer(context, false));
+        EntityRendererRegistry.register(SnifferPlusEntities.STONE_PINE_CHEST_BOAT.get(), (context) -> new StonePineBoatRenderer(context, true));
     }
 
     @Override
@@ -37,10 +37,10 @@ public class FabricClientHelper implements IClientHelper {
 
     @Override
     public void registerRenderTypes() {
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), SnifferPlusBlocks.POTTED_STONE_PINE_SAPLING,
-                SnifferPlusBlocks.STONE_PINE_SAPLING, SnifferPlusBlocks.STONE_PINE_DOOR, SnifferPlusBlocks.STONE_PINE_TRAPDOOR,
-                SnifferPlusBlocks.IVY_BODY, SnifferPlusBlocks.IVY_HEAD, SnifferPlusBlocks.FIDDLEFERN, SnifferPlusBlocks.TALL_FIDDLEFERN);
-        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutoutMipped(), SnifferPlusBlocks.STONE_PINE_LEAVES);
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(), SnifferPlusBlocks.POTTED_STONE_PINE_SAPLING.get(),
+                SnifferPlusBlocks.STONE_PINE_SAPLING.get(), SnifferPlusBlocks.STONE_PINE_DOOR.get(), SnifferPlusBlocks.STONE_PINE_TRAPDOOR.get(),
+                SnifferPlusBlocks.IVY_BODY.get(), SnifferPlusBlocks.IVY_HEAD.get(), SnifferPlusBlocks.FIDDLEFERN.get(), SnifferPlusBlocks.TALL_FIDDLEFERN.get());
+        BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutoutMipped(), SnifferPlusBlocks.STONE_PINE_LEAVES.get());
     }
 
     @Override

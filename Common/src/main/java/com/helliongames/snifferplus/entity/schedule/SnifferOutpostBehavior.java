@@ -1,6 +1,7 @@
 package com.helliongames.snifferplus.entity.schedule;
 
 import com.helliongames.snifferplus.access.SnifferAccess;
+import com.helliongames.snifferplus.registration.SnifferPlusMemoryModules;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -40,7 +41,7 @@ public class SnifferOutpostBehavior extends Behavior<Sniffer> {
         sniffer.transitionTo(Sniffer.State.SEARCHING);
 
         Optional<BlockPos> walkTargetPos = sniffer.getBrain().getMemory(MemoryModuleType.WALK_TARGET).map(WalkTarget::getTarget).map(PositionTracker::currentBlockPosition);
-        Optional<BlockPos> outpostPos = sniffer.getBrain().getMemory(SnifferPlusMemoryModules.OUTPOST_LOCATION);
+        Optional<BlockPos> outpostPos = sniffer.getBrain().getMemory(SnifferPlusMemoryModules.OUTPOST_LOCATION.get());
 
         if (walkTargetPos.isEmpty() || outpostPos.isEmpty()) {
             return false;
@@ -57,14 +58,14 @@ public class SnifferOutpostBehavior extends Behavior<Sniffer> {
         Pair<BlockPos, Holder<Structure>> posStructurePair = serverLevel.getChunkSource().getGenerator().findNearestMapStructure(serverLevel, structure, sniffer.blockPosition(), 100, false);
 
         if (posStructurePair != null) {
-            sniffer.getBrain().setMemory(SnifferPlusMemoryModules.OUTPOST_LOCATION, posStructurePair.getFirst());
+            sniffer.getBrain().setMemory(SnifferPlusMemoryModules.OUTPOST_LOCATION.get(), posStructurePair.getFirst());
             sniffer.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(posStructurePair.getFirst(), 1.5F, 20));
         }
     }
 
     @Override
     protected void stop(ServerLevel serverLevel, Sniffer sniffer, long l) {
-        sniffer.getBrain().eraseMemory(SnifferPlusMemoryModules.OUTPOST_LOCATION);
+        sniffer.getBrain().eraseMemory(SnifferPlusMemoryModules.OUTPOST_LOCATION.get());
         sniffer.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
     }
 }

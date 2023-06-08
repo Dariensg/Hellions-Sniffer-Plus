@@ -1,6 +1,7 @@
 package com.helliongames.snifferplus.entity;
 
-import com.helliongames.snifferplus.items.SnifferPlusItems;
+import com.helliongames.snifferplus.registration.SnifferPlusEntities;
+import com.helliongames.snifferplus.registration.SnifferPlusItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.Item;
@@ -13,7 +14,7 @@ public class StonePineBoat extends Boat {
     }
 
     public StonePineBoat(Level level, double x, double y, double z) {
-        this(SnifferPlusEntities.STONE_PINE_BOAT, level);
+        this(SnifferPlusEntities.STONE_PINE_BOAT.get(), level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;
@@ -22,6 +23,6 @@ public class StonePineBoat extends Boat {
 
     @Override
     public Item getDropItem() {
-        return SnifferPlusItems.STONE_PINE_BOAT;
+        return SnifferPlusItems.STONE_PINE_BOAT.get();
     }
 }

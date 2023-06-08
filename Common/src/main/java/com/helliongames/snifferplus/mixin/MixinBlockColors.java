@@ -1,6 +1,6 @@
 package com.helliongames.snifferplus.mixin;
 
-import com.helliongames.snifferplus.blocks.SnifferPlusBlocks;
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.world.level.FoliageColor;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,6 +18,6 @@ public class MixinBlockColors {
                     ordinal = 3),
             locals = LocalCapture.CAPTURE_FAILHARD)
     private static void snifferplus_registerBlockColorProviders(CallbackInfoReturnable<BlockColors> cir, BlockColors blockColors) {
-        blockColors.register((blockState, blockAndTintGetter, blockPos, i) -> FoliageColor.getEvergreenColor(), SnifferPlusBlocks.STONE_PINE_LEAVES);
+        blockColors.register((blockState, blockAndTintGetter, blockPos, i) -> FoliageColor.getEvergreenColor(), SnifferPlusBlocks.STONE_PINE_LEAVES.get());
     }
 }

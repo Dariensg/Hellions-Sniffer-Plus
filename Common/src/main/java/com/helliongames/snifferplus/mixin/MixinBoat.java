@@ -1,6 +1,6 @@
 package com.helliongames.snifferplus.mixin;
 
-import com.helliongames.snifferplus.blocks.SnifferPlusBlocks;
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import com.helliongames.snifferplus.entity.StonePineBoat;
 import com.helliongames.snifferplus.entity.StonePineChestBoat;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -15,7 +15,7 @@ public class MixinBoat {
     @Redirect(method = "checkFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/Boat$Type;getPlanks()Lnet/minecraft/world/level/block/Block;"))
     private Block snifferplus_dropCustomPlanks(Boat.Type instance) {
         if (((Object) this) instanceof StonePineBoat || ((Object) this) instanceof StonePineChestBoat) {
-            return SnifferPlusBlocks.STONE_PINE_PLANKS;
+            return SnifferPlusBlocks.STONE_PINE_PLANKS.get();
         }
 
         return instance.getPlanks();

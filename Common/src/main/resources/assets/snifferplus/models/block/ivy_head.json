@@ -2,5 +2,6 @@
   "parent": "minecraft:block/cross",
   "textures": {
     "cross": "snifferplus:block/ivy_head"
-  }
+  },
+  "render_type": "cutout"
 }

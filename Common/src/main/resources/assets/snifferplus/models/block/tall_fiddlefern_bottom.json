@@ -2,5 +2,6 @@
   "parent": "minecraft:block/tinted_cross",
   "textures": {
     "cross": "snifferplus:block/tall_fiddlefern_bottom"
-  }
+  },
+  "render_type": "cutout"
 }

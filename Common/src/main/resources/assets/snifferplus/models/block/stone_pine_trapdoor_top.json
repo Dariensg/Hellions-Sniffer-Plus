@@ -2,5 +2,6 @@
   "parent": "snifferplus:block/template_orientable_trapdoor_top_hinged",
   "textures": {
     "texture": "snifferplus:block/stone_pine_trapdoor"
-  }
+  },
+  "render_type": "cutout"
 }

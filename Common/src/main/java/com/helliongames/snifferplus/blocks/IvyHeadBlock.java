@@ -1,5 +1,6 @@
 package com.helliongames.snifferplus.blocks;
 
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -13,7 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class IvyHeadBlock extends GrowingPlantHeadBlock {
     private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
-    protected IvyHeadBlock(Properties properties) {
+    public IvyHeadBlock(Properties properties) {
         super(properties, Direction.DOWN, SHAPE, false, 0.1D);
     }
 
@@ -29,7 +30,7 @@ public class IvyHeadBlock extends GrowingPlantHeadBlock {
 
     @Override
     protected Block getBodyBlock() {
-        return SnifferPlusBlocks.IVY_BODY;
+        return SnifferPlusBlocks.IVY_BODY.get();
     }
 
     @Override
