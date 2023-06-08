@@ -13,10 +13,10 @@ import net.minecraft.world.level.levelgen.Heightmap;
 public class CommonClass {
 
     public static void init() {
-        SnifferPlusBlocks.register();
-        SnifferPlusItems.register();
+        SnifferPlusBlocks.registerBlocks();
+        SnifferPlusItems.registerItems();
         SnifferPlusTabs.register();
-        SnifferPlusEntities.register();
+        SnifferPlusEntities.registerEntities();
 
         Services.STRIPPABLE_BLOCK_HELPER.registerStrippableBlock(SnifferPlusBlocks.STONE_PINE_LOG, SnifferPlusBlocks.STRIPPED_STONE_PINE_LOG);
         Services.STRIPPABLE_BLOCK_HELPER.registerStrippableBlock(SnifferPlusBlocks.STONE_PINE_WOOD, SnifferPlusBlocks.STRIPPED_STONE_PINE_WOOD);
