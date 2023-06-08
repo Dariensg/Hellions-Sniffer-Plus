@@ -5,11 +5,14 @@ import com.helliongames.snifferplus.access.ServerPlayerAccess;
 import com.helliongames.snifferplus.access.SnifferAccess;
 import com.helliongames.snifferplus.entity.schedule.SnifferPlusMemoryModules;
 import com.helliongames.snifferplus.world.SnifferContainer;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -29,12 +32,18 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -52,6 +61,11 @@ import java.util.function.Predicate;
 @Mixin(Sniffer.class)
 public abstract class MixinSniffer extends LivingEntity implements SnifferAccess, ContainerListener, HasCustomInventoryScreen, Saddleable {
     @Shadow @Final private static EntityDataAccessor<Integer> DATA_DROP_SEED_AT_TICK;
+
+    @Shadow protected abstract Vec3 getHeadPosition();
+
+    @Shadow protected abstract BlockPos getHeadBlock();
+
     protected SnifferContainer inventory;
 
     private static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
@@ -99,12 +113,24 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         }
 
         if (this.hasChest()) {
-            ItemStack itemStack = new ItemStack(this.level().random.nextBoolean() ? Items.PITCHER_POD : Items.TORCHFLOWER_SEEDS);
+            ServerLevel serverLevel = (ServerLevel)this.level();
+            LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(BuiltInLootTables.SNIFFER_DIGGING);
+            LootParams lootParams = new LootParams.Builder(serverLevel).withParameter(LootContextParams.ORIGIN, this.getHeadPosition()).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.GIFT);
+            ObjectArrayList<ItemStack> list = lootTable.getRandomItems(lootParams);
+            BlockPos blockPos = this.getHeadBlock();
 
-            if (this.inventory.addItem(itemStack).equals(ItemStack.EMPTY)) {
-                this.playSound(SoundEvents.SNIFFER_DROP_SEED, 1.0f, 1.0f);
-                ci.cancel();
+            for (ItemStack itemStack : list) {
+                ItemStack remainingStack = this.inventory.addItem(itemStack);
+
+                if (remainingStack.isEmpty()) continue;
+
+                ItemEntity itemEntity = new ItemEntity(serverLevel, blockPos.getX(), blockPos.getY(), blockPos.getZ(), remainingStack);
+                itemEntity.setDefaultPickUpDelay();
+                serverLevel.addFreshEntity(itemEntity);
             }
+
+            this.playSound(SoundEvents.SNIFFER_DROP_SEED, 1.0f, 1.0f);
+            ci.cancel();
         }
     }
 
