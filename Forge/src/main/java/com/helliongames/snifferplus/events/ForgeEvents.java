@@ -5,6 +5,7 @@ import com.helliongames.snifferplus.registration.util.RegistryObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -22,6 +23,8 @@ public class ForgeEvents {
         BlockState targetBlockState = level.getBlockState(event.getPos());
         Block target = targetBlockState.getBlock();
         BlockPos pos = event.getPos();
+
+        if (!event.getEntity().getItemInHand(event.getHand()).is(ItemTags.AXES)) return;
 
         for (RegistryObject<Block> blockRegistryObject : ForgeStrippableBlockHelper.strippableBlockMap.keySet()) {
             if (blockRegistryObject.get().equals(target)) {
