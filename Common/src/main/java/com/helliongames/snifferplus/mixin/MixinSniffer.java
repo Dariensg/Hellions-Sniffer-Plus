@@ -207,7 +207,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
             return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED);
         }
 
-        float speedFactor = this.isInWater() ? 0.75F : 0.3F;
+        float speedFactor = this.isInWater() ? 0.75F : 0.5F;
 
         return (float)this.getAttributeValue(Attributes.MOVEMENT_SPEED) * speedFactor;
     }
