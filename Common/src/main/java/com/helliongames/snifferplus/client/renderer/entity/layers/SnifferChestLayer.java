@@ -32,10 +32,10 @@ public class SnifferChestLayer extends RenderLayer<Sniffer, SnifferModel<Sniffer
         poseStack.pushPose();
         ModelPart body = model.root().getChild("bone").getChild("body");
         poseStack.translate(body.x / 20, body.y / 20, body.z / 20);
-        poseStack.translate(0.5f, 0.25f, 1.25f);
+        poseStack.translate(0.5f, -0.6f, 0.75f);
         poseStack.scale(-1.0f, -0.5f, 0.5f);
-        poseStack.mulPose(Axis.XP.rotationDegrees(body.xRot * Mth.RAD_TO_DEG));
-        poseStack.mulPose(Axis.YP.rotationDegrees(body.yRot * Mth.RAD_TO_DEG));
+        poseStack.mulPose(Axis.XP.rotationDegrees(-body.xRot * Mth.RAD_TO_DEG));
+        poseStack.mulPose(Axis.YP.rotationDegrees(-body.yRot * Mth.RAD_TO_DEG));
         poseStack.mulPose(Axis.ZP.rotationDegrees(body.zRot * Mth.RAD_TO_DEG));
         this.blockRenderer.renderSingleBlock(Blocks.CHEST.defaultBlockState(), poseStack, multiBufferSource, i, OverlayTexture.NO_OVERLAY);
         poseStack.popPose();
