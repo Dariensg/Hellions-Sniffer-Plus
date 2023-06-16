@@ -6,15 +6,9 @@
       "entries": [
         {
           "data": {
-            "Name": "minecraft:moss_carpet"
-          },
-          "weight": 60
-        },
-        {
-          "data": {
             "Name": "minecraft:grass"
           },
-          "weight": 120
+          "weight": 360
         },
         {
           "data": {
@@ -23,13 +17,13 @@
               "half": "lower"
             }
           },
-          "weight": 30
+          "weight": 90
         },
         {
           "data": {
             "Name": "snifferplus:fiddlefern"
           },
-          "weight": 20
+          "weight": 3
         },
         {
           "data": {
@@ -38,7 +32,7 @@
               "half": "lower"
             }
           },
-          "weight": 10
+          "weight": 2
         },
         {
           "data": {
@@ -47,13 +41,13 @@
               "half": "lower"
             }
           },
-          "weight": 2
+          "weight": 1
         },
         {
           "data": {
             "Name": "minecraft:torchflower"
           },
-          "weight": 3
+          "weight": 1
         },
         {
           "data": {
