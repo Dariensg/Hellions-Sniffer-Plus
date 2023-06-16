@@ -3,7 +3,6 @@ package com.helliongames.snifferplus.platform;
 import com.helliongames.snifferplus.client.model.SnifferPlusModelLayers;
 import com.helliongames.snifferplus.client.renderer.entity.StonePineBoatRenderer;
 import com.helliongames.snifferplus.client.renderer.entity.layers.SnifferSaddleLayer;
-import com.helliongames.snifferplus.network.SnifferPlusNetworkHandler;
 import com.helliongames.snifferplus.platform.services.IClientHelper;
 import com.helliongames.snifferplus.registration.SnifferPlusEntities;
 import net.minecraft.client.model.SnifferModel;
@@ -40,7 +39,6 @@ public class ForgeClientHelper implements IClientHelper {
 
     @Override
     public void registerPackets() {
-        SnifferPlusNetworkHandler.register();
     }
 
     @SubscribeEvent

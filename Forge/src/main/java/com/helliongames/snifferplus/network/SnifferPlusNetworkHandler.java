@@ -3,7 +3,6 @@ package com.helliongames.snifferplus.network;
 import com.helliongames.snifferplus.Constants;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -20,7 +19,10 @@ public class SnifferPlusNetworkHandler {
     private static int index;
 
     public static synchronized void register() {
-        INSTANCE.messageBuilder(ClientboundSnifferScreenOpenPacket.class, index++).encoder(ClientboundSnifferScreenOpenPacket::encode).decoder(ClientboundSnifferScreenOpenPacket::decode).consumerMainThread(ClientboundSnifferScreenOpenPacket::handle).add();
+        INSTANCE.messageBuilder(ClientboundSnifferScreenOpenPacket.class, index++)
+                .encoder(ClientboundSnifferScreenOpenPacket::encode)
+                .decoder(ClientboundSnifferScreenOpenPacket::decode)
+                .consumerMainThread(ClientboundSnifferScreenOpenPacket::handle).add();
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
@@ -36,6 +38,6 @@ public class SnifferPlusNetworkHandler {
     }
 
     public static <MSG> void sendToClient(MSG message, ServerPlayer serverPlayer) {
-        INSTANCE.sendTo(message, serverPlayer.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), message);
     }
 }
