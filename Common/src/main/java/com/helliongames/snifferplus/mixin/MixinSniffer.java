@@ -431,12 +431,12 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     protected int getInventorySize() {
-        return this.hasChest() ? 22 : 2;
+        return this.hasChest() ? 38 : 2;
     }
 
     @Override
     public int getInventoryColumns() {
-        return 5;
+        return 9;
     }
 
     protected void createInventory() {

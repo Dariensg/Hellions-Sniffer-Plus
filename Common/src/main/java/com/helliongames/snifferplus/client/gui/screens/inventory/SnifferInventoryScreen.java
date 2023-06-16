@@ -20,6 +20,7 @@ public class SnifferInventoryScreen extends AbstractContainerScreen<SnifferInven
     public SnifferInventoryScreen(SnifferInventoryMenu menu, Inventory inventory, Sniffer sniffer) {
         super(menu, inventory, sniffer.getDisplayName());
         this.sniffer = sniffer;
+        this.imageWidth = 248;
     }
 
     @Override
