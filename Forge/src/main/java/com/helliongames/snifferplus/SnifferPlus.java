@@ -1,7 +1,6 @@
 package com.helliongames.snifferplus;
 
 import com.helliongames.snifferplus.client.ClientClass;
-import com.helliongames.snifferplus.platform.ForgeClientHelper;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -18,9 +17,6 @@ public class SnifferPlus {
         modEventBus.addListener(this::clientSetup);
 
         CommonClass.init();
-
-        modEventBus.addListener(ForgeClientHelper::registerModelLayerListener);
-        modEventBus.addListener(ForgeClientHelper::registerEntityRendererListener);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

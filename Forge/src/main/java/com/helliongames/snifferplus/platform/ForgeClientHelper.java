@@ -12,12 +12,16 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.EntityType;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
+@Mod.EventBusSubscriber(modid = "snifferplus", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientHelper implements IClientHelper {
     private static final Map<ModelLayerLocation, Supplier<LayerDefinition>> modelLayers = new HashMap<>();
     private static final Map<EntityType, EntityRendererProvider> entityRenderers = new HashMap<>();
@@ -39,6 +43,7 @@ public class ForgeClientHelper implements IClientHelper {
         SnifferPlusNetworkHandler.register();
     }
 
+    @SubscribeEvent
     public static void registerModelLayerListener(EntityRenderersEvent.RegisterLayerDefinitions event) {
         modelLayers.put(SnifferPlusModelLayers.SNIFFER_SADDLE, () -> SnifferSaddleLayer.createInflatedSnifferLayer(new CubeDeformation(0.5F)));
         modelLayers.put(SnifferPlusModelLayers.SNIFFER_CHEST, SnifferModel::createBodyLayer);
@@ -48,6 +53,7 @@ public class ForgeClientHelper implements IClientHelper {
         }
     }
 
+    @SubscribeEvent
     public static void registerEntityRendererListener(EntityRenderersEvent.RegisterRenderers event) {
         entityRenderers.put(SnifferPlusEntities.STONE_PINE_BOAT.get(), (context) -> new StonePineBoatRenderer(context, false));
         entityRenderers.put(SnifferPlusEntities.STONE_PINE_CHEST_BOAT.get(), (context) -> new StonePineBoatRenderer(context, true));
