@@ -1,0 +1,35 @@
+{
+  "block.snifferplus.stone_pine_button": "Кедровая кнопка",
+  "block.snifferplus.stone_pine_door": "Кедровая дверь",
+  "block.snifferplus.stone_pine_fence": "Кедровый забор",
+  "block.snifferplus.stone_pine_fence_gate": "Кедровая калитка",
+  "block.snifferplus.stone_pine_hanging_sign": "Кедровая подвесная табличка",
+  "block.snifferplus.stone_pine_leaves": "Кедровые листья",
+  "block.snifferplus.stone_pine_log": "Кедровое бревно",
+  "block.snifferplus.stone_pine_planks": "Кедровые доски",
+  "block.snifferplus.stone_pine_pressure_plate": "Кедровая нажимная плита",
+  "block.snifferplus.stone_pine_sapling": "Саженец кедра",
+  "block.snifferplus.stone_pine_sign": "Кедровая табличка",
+  "block.snifferplus.stone_pine_slab": "Кедровая плита",
+  "block.snifferplus.stone_pine_stairs": "Кедровые ступеньки",
+  "block.snifferplus.stone_pine_trapdoor": "Кедровый люк",
+  "block.snifferplus.stone_pine_wood": "Кедр",
+  "block.snifferplus.stripped_stone_pine_log": "Обтёсанное кедровое бревно",
+  "block.snifferplus.stripped_stone_pine_wood": "Обтёсанная кедровая древесина",
+
+  "block.snifferplus.ivy_body": "Плющ",
+  "block.snifferplus.ivy_head": "Плющ",
+  "block.snifferplus.fiddlefern": "Скрипичный папоротник",
+  "block.snifferplus.tall_fiddlefern": "Высокий скрипичный папоротник",
+
+  "item.snifferplus.stone_pine_boat": "Кедровая лодка",
+  "item.snifferplus.stone_pine_chest_boat": "Кедровая лодка с сундуком",
+  "item.snifferplus.ivy": "Плющ",
+
+  "entity.snifferplus.stone_pine_boat": "Кедровая лодка",
+  "entity.snifferplus.stone_pine_chest_boat": "Кедровая лодка с сундуком",
+
+  "biome.snifferplus.timeless_grotto": "Вечный грот",
+
+  "itemGroup.sniffer_plus_tab": "Нюхач+"
+}
