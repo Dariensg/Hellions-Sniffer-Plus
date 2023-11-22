@@ -1,12 +1,7 @@
 package com.helliongames.snifferplus.platform;
 
 import com.helliongames.snifferplus.Constants;
-import com.helliongames.snifferplus.platform.services.IBlockSetTypeHelper;
-import com.helliongames.snifferplus.platform.services.IPacketHelper;
-import com.helliongames.snifferplus.platform.services.IPlatformHelper;
-import com.helliongames.snifferplus.platform.services.ISpawnPlacementHelper;
-import com.helliongames.snifferplus.platform.services.IStrippableBlockHelper;
-import com.helliongames.snifferplus.platform.services.IWoodTypeHelper;
+import com.helliongames.snifferplus.platform.services.*;
 
 import java.util.ServiceLoader;
 
@@ -23,6 +18,8 @@ public class Services {
     public static final IWoodTypeHelper WOOD_TYPE_HELPER = load(IWoodTypeHelper.class);
 
     public static final IStrippableBlockHelper STRIPPABLE_BLOCK_HELPER = load(IStrippableBlockHelper.class);
+
+    public static final ICompostingChanceHelper COMPOSTING_CHANCE_HELPER = load(ICompostingChanceHelper.class);
 
     public static <T> T load(Class<T> clazz) {
 
