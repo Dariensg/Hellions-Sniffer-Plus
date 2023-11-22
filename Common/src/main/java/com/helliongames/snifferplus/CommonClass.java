@@ -2,7 +2,6 @@ package com.helliongames.snifferplus;
 
 import com.helliongames.snifferplus.platform.Services;
 import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
-import com.helliongames.snifferplus.registration.SnifferPlusEntities;
 import com.helliongames.snifferplus.registration.SnifferPlusItems;
 import com.helliongames.snifferplus.registration.SnifferPlusMemoryModules;
 import com.helliongames.snifferplus.registration.SnifferPlusTabs;
@@ -17,7 +16,6 @@ public class CommonClass {
         SnifferPlusBlocks.loadClass();
         SnifferPlusItems.loadClass();
         SnifferPlusTabs.loadClass();
-        SnifferPlusEntities.loadClass();
         SnifferPlusMemoryModules.loadClass();
 
         Services.STRIPPABLE_BLOCK_HELPER.registerStrippableBlock(SnifferPlusBlocks.STONE_PINE_LOG, SnifferPlusBlocks.STRIPPED_STONE_PINE_LOG);

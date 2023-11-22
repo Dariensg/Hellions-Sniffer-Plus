@@ -1,10 +1,8 @@
 package com.helliongames.snifferplus.platform;
 
 import com.helliongames.snifferplus.client.model.SnifferPlusModelLayers;
-import com.helliongames.snifferplus.client.renderer.entity.StonePineBoatRenderer;
 import com.helliongames.snifferplus.client.renderer.entity.layers.SnifferSaddleLayer;
 import com.helliongames.snifferplus.platform.services.IClientHelper;
-import com.helliongames.snifferplus.registration.SnifferPlusEntities;
 import net.minecraft.client.model.SnifferModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -53,9 +51,6 @@ public class ForgeClientHelper implements IClientHelper {
 
     @SubscribeEvent
     public static void registerEntityRendererListener(EntityRenderersEvent.RegisterRenderers event) {
-        entityRenderers.put(SnifferPlusEntities.STONE_PINE_BOAT.get(), (context) -> new StonePineBoatRenderer(context, false));
-        entityRenderers.put(SnifferPlusEntities.STONE_PINE_CHEST_BOAT.get(), (context) -> new StonePineBoatRenderer(context, true));
-
         for (Map.Entry<EntityType, EntityRendererProvider> entry : entityRenderers.entrySet()) {
             event.registerEntityRenderer(entry.getKey(), entry.getValue());
         }

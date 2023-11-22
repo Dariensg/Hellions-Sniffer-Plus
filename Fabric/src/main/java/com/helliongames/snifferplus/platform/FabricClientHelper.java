@@ -3,16 +3,13 @@ package com.helliongames.snifferplus.platform;
 import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import com.helliongames.snifferplus.client.gui.screens.inventory.SnifferInventoryScreen;
 import com.helliongames.snifferplus.client.model.SnifferPlusModelLayers;
-import com.helliongames.snifferplus.client.renderer.entity.StonePineBoatRenderer;
 import com.helliongames.snifferplus.client.renderer.entity.layers.SnifferSaddleLayer;
-import com.helliongames.snifferplus.registration.SnifferPlusEntities;
 import com.helliongames.snifferplus.network.ClientboundSnifferScreenOpenPacket;
 import com.helliongames.snifferplus.platform.services.IClientHelper;
 import com.helliongames.snifferplus.world.inventory.SnifferInventoryMenu;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SnifferModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -25,8 +22,6 @@ public class FabricClientHelper implements IClientHelper {
 
     @Override
     public void registerEntityRenderers() {
-        EntityRendererRegistry.register(SnifferPlusEntities.STONE_PINE_BOAT.get(), (context) -> new StonePineBoatRenderer(context, false));
-        EntityRendererRegistry.register(SnifferPlusEntities.STONE_PINE_CHEST_BOAT.get(), (context) -> new StonePineBoatRenderer(context, true));
     }
 
     @Override
