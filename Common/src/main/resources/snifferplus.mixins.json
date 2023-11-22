@@ -9,7 +9,6 @@
     "DoorBlockAccessor",
     "MixinBlockEntityType",
     "MixinBlockStateBase",
-    "MixinBoat",
     "MixinLivingEntity",
     "MixinOverworldBiomeBuilder",
     "MixinServerPlayer",
@@ -20,7 +19,10 @@
     "SaplingBlockAccessor",
     "StairBlockAccessor",
     "TallGrassBlockAccessor",
-    "TrapDoorBlockAccessor"
+    "TrapDoorBlockAccessor",
+    "boat.BoatDropsMixin",
+    "boat.BoatTypeMixin",
+    "boat.ChestBoatDropsMixin"
   ],
   "client": [
     "MixinBlockColors",

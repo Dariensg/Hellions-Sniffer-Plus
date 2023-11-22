@@ -12,6 +12,11 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 public class FabricWoodTypeHelper implements IWoodTypeHelper {
 
     @Override
+    public WoodType registerWoodType(String identifier, BlockSetType setType) {
+        return WoodTypeRegistry.register(new ResourceLocation(Constants.MOD_ID, identifier), setType);
+    }
+
+    @Override
     public WoodType registerWoodType(String identifier, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
         return WoodTypeRegistry.register(new ResourceLocation(Constants.MOD_ID, identifier), setType, soundType, hangingSignSoundType, fenceGateClose, fenceGateOpen);
     }
