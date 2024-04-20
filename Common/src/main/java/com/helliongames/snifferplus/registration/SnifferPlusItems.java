@@ -11,7 +11,6 @@ import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.SignItem;
-import net.minecraft.world.level.block.ComposterBlock;
 
 public class SnifferPlusItems {
 
@@ -46,6 +45,5 @@ public class SnifferPlusItems {
     public static final RegistryObject<Item> TALL_FIDDLEFERN = ITEMS.register("tall_fiddlefern", () -> new BlockItem(SnifferPlusBlocks.TALL_FIDDLEFERN.get(), new Item.Properties()));
 
     // Called in the mod initializer / constructor in order to make sure that items are registered
-    public static void loadClass() {
-    }
+    public static void loadClass() {}
 }

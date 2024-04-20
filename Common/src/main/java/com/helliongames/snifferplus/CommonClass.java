@@ -1,13 +1,11 @@
 package com.helliongames.snifferplus;
 
 import com.helliongames.snifferplus.platform.Services;
-import com.helliongames.snifferplus.registration.SnifferPlusBiomes;
 import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import com.helliongames.snifferplus.registration.SnifferPlusEntities;
 import com.helliongames.snifferplus.registration.SnifferPlusItems;
 import com.helliongames.snifferplus.registration.SnifferPlusMemoryModules;
 import com.helliongames.snifferplus.registration.SnifferPlusTabs;
-import com.helliongames.snifferplus.registration.SnifferPlusTreeGrowers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;

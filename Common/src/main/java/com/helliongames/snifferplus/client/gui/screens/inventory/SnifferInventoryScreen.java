@@ -43,11 +43,11 @@ public class SnifferInventoryScreen extends AbstractContainerScreen<SnifferInven
             graphics.blit(SNIFFER_INVENTORY_LOCATION, width + 79, height + 7, 0, this.imageHeight, ((SnifferAccess) sniffer).getInventoryColumns() * 18, 72);
         }
 
-        InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, width + 26, height + 18, width + 78, height + 70, 11, 0.25f, this.xMouse, this.yMouse, this.sniffer);
+        InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, width + 51, height + 55, 11, (float)(width + 51) - this.xMouse, (float)(height + 75 - 50) - this.yMouse, this.sniffer);
     }
 
     public void render(GuiGraphics graphics, int $$1, int $$2, float $$3) {
-        this.renderBackground(graphics, $$1, $$2, $$3);
+        this.renderBackground(graphics);
         this.xMouse = (float)$$1;
         this.yMouse = (float)$$2;
         super.render(graphics, $$1, $$2, $$3);
