@@ -1,0 +1,35 @@
+{
+  "block.snifferplus.stone_pine_button": "Botón de Pino Piedra",
+  "block.snifferplus.stone_pine_door": "Puerta de Pino Piedra",
+  "block.snifferplus.stone_pine_fence": "Valla de Pino Piedra",
+  "block.snifferplus.stone_pine_fence_gate": "Puerta de Valla de Pino Piedra",
+  "block.snifferplus.stone_pine_hanging_sign": "Letrero Colgante de Pino Piedra",
+  "block.snifferplus.stone_pine_leaves": "Hojas de Pino Piedra",
+  "block.snifferplus.stone_pine_log": "Tronco de Pino  Piedra",
+  "block.snifferplus.stone_pine_planks": "Madera de Pino Piedra",
+  "block.snifferplus.stone_pine_pressure_plate": "Placa de Presión de Pino Piedra",
+  "block.snifferplus.stone_pine_sapling": "Retoño de Pino Piedra",
+  "block.snifferplus.stone_pine_sign": "Letrero de Pino Piedra",
+  "block.snifferplus.stone_pine_slab": "Losa de Pino Piedra",
+  "block.snifferplus.stone_pine_stairs": "Escaleras de Pino Piedra",
+  "block.snifferplus.stone_pine_trapdoor": "Trampilla de Pino Piedra",
+  "block.snifferplus.stone_pine_wood": "Leño de Pino Piedra",
+  "block.snifferplus.stripped_stone_pine_log": "Tronco de Pino Piedra sin corteza",
+  "block.snifferplus.stripped_stone_pine_wood": "Leño de Pino Piedra sin corteza",
+
+  "block.snifferplus.ivy_body": "Hiedra",
+  "block.snifferplus.ivy_head": "Hiedra",
+  "block.snifferplus.fiddlefern": "Helecho Violín",
+  "block.snifferplus.tall_fiddlefern": "Helecho Violín Alto",
+
+  "item.snifferplus.stone_pine_boat": "Bote de Pino Piedra",
+  "item.snifferplus.stone_pine_chest_boat": "Bote de Pino Piedra con Baúl",
+  "item.snifferplus.ivy": "Hiedra",
+
+  "entity.snifferplus.stone_pine_boat": "Bote de Pino Piedra",
+  "entity.snifferplus.stone_pine_chest_boat": "Bote de Pino Piedra con Baúl",
+
+  "biome.snifferplus.timeless_grotto": "Gruta Eterna",
+
+  "itemGroup.sniffer_plus_tab": "Sniffer+"
+}
