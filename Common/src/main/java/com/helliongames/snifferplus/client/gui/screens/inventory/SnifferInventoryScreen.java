@@ -12,7 +12,7 @@ import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Inventory;
 
 public class SnifferInventoryScreen extends AbstractContainerScreen<SnifferInventoryMenu> {
-    private static final ResourceLocation SNIFFER_INVENTORY_LOCATION = new ResourceLocation(Constants.MOD_ID, "textures/gui/container/sniffer.png");
+    private static final ResourceLocation SNIFFER_INVENTORY_LOCATION = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/container/sniffer.png");
     private final Sniffer sniffer;
     private float xMouse;
     private float yMouse;

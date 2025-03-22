@@ -25,7 +25,7 @@ public abstract class MixinSnifferRenderer extends MobRenderer<Sniffer, SnifferM
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void snifferplus_addSaddleLayer(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.addLayer(new SnifferSaddleLayer<>((SnifferRenderer) (Object) this, new SnifferModel<>(context.bakeLayer(SnifferPlusModelLayers.SNIFFER_SADDLE)), new ResourceLocation(Constants.MOD_ID, "textures/entity/sniffer/sniffer_saddle.png")));
+        this.addLayer(new SnifferSaddleLayer<>((SnifferRenderer) (Object) this, new SnifferModel<>(context.bakeLayer(SnifferPlusModelLayers.SNIFFER_SADDLE)), ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/sniffer/sniffer_saddle.png")));
         this.addLayer(new SnifferChestLayer((SnifferRenderer) (Object) this, Minecraft.getInstance().getBlockRenderer()));
     }
 }

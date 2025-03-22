@@ -10,6 +10,6 @@ public class SnifferPlusFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> STONE_PINE_TREE = registerKey("stone_pine_tree");
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String identifier) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, new ResourceLocation(Constants.MOD_ID, identifier));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, identifier));
     }
 }

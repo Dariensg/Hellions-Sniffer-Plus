@@ -4,6 +4,7 @@ import com.helliongames.snifferplus.registration.SnifferPlusEntities;
 import com.helliongames.snifferplus.registration.SnifferPlusItems;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
@@ -25,12 +26,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.jetbrains.annotations.Nullable;
 
 public class StonePineChestBoat extends StonePineBoat implements HasCustomInventoryScreen, ContainerEntity {
     private NonNullList<ItemStack> itemStacks = NonNullList.withSize(27, ItemStack.EMPTY);
     @Nullable
-    private ResourceLocation lootTable;
+    private ResourceKey<LootTable> lootTable;
     private long lootTableSeed;
 
     public StonePineChestBoat(EntityType<? extends Boat> entityType, Level level) {
@@ -58,13 +60,13 @@ public class StonePineChestBoat extends StonePineBoat implements HasCustomInvent
     @Override
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        this.addChestVehicleSaveData(compoundTag);
+        this.addChestVehicleSaveData(compoundTag, this.registryAccess());
     }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.readChestVehicleSaveData(compoundTag);
+        this.readChestVehicleSaveData(compoundTag, this.registryAccess());
     }
 
     @Override
@@ -166,15 +168,14 @@ public class StonePineChestBoat extends StonePineBoat implements HasCustomInvent
         this.unpackChestVehicleLootTable(player);
     }
 
-    @Override
     @Nullable
-    public ResourceLocation getLootTable() {
+    public ResourceKey<LootTable> getLootTable() {
         return this.lootTable;
     }
 
     @Override
-    public void setLootTable(@Nullable ResourceLocation resourceLocation) {
-        this.lootTable = resourceLocation;
+    public void setLootTable(@Nullable ResourceKey<LootTable> resourceKey) {
+        this.lootTable = resourceKey;
     }
 
     @Override

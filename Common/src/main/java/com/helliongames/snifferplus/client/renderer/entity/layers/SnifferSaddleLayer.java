@@ -37,7 +37,7 @@ public class SnifferSaddleLayer<T extends Entity, M extends EntityModel<T>> exte
         this.model.prepareMobModel(entity, f, g, h);
         this.model.setupAnim(entity, f, g, j, k, l);
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(this.textureLocation));
-        this.model.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+        this.model.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
     }
 
     public static LayerDefinition createInflatedSnifferLayer(CubeDeformation deformation) {

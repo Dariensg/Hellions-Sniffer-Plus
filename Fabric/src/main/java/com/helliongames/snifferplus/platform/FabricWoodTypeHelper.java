@@ -13,6 +13,6 @@ public class FabricWoodTypeHelper implements IWoodTypeHelper {
 
     @Override
     public WoodType registerWoodType(String identifier, BlockSetType setType, SoundType soundType, SoundType hangingSignSoundType, SoundEvent fenceGateClose, SoundEvent fenceGateOpen) {
-        return new WoodTypeBuilder().soundGroup(soundType).hangingSignSoundGroup(hangingSignSoundType).fenceGateCloseSound(fenceGateClose).fenceGateOpenSound(fenceGateOpen).register(new ResourceLocation(Constants.MOD_ID, identifier), setType);
+        return new WoodTypeBuilder().soundGroup(soundType).hangingSignSoundGroup(hangingSignSoundType).fenceGateCloseSound(fenceGateClose).fenceGateOpenSound(fenceGateOpen).register(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, identifier), setType);
     }
 }

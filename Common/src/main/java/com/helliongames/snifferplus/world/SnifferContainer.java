@@ -42,7 +42,7 @@ public class SnifferContainer extends SimpleContainer {
     private void moveItemToOccupiedSlotsWithSameType(ItemStack stack) {
         for(int i = 2; i < this.getContainerSize(); ++i) {
             ItemStack stackInSlot = this.getItem(i);
-            if (ItemStack.isSameItemSameTags(stackInSlot, stack)) {
+            if (ItemStack.isSameItemSameComponents(stackInSlot, stack)) {
                 this.moveItemsBetweenStacks(stack, stackInSlot);
                 if (stack.isEmpty()) {
                     return;

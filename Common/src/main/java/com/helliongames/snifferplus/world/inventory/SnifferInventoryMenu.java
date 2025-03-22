@@ -1,6 +1,7 @@
 package com.helliongames.snifferplus.world.inventory;
 
 import com.helliongames.snifferplus.access.SnifferAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Inventory;
@@ -33,7 +34,7 @@ public class SnifferInventoryMenu extends AbstractContainerMenu {
 
             @Override
             public boolean mayPlace(ItemStack stack) {
-                return ItemStack.matches(stack, Raid.getLeaderBannerInstance());
+                return ItemStack.matches(stack, Raid.getLeaderBannerInstance(sniffer.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)));
             }
         });
 

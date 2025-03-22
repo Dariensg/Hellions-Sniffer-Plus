@@ -37,6 +37,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -83,11 +84,15 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void snifferplus_createDataAndInventoryOnCreation(EntityType type, Level level, CallbackInfo ci) {
-        this.entityData.define(HAS_CHEST, false);
-        this.entityData.define(HAS_SCENT_ITEM, false);
-        this.entityData.define(IS_SADDLED, false);
+    private void snifferplus_createInventoryOnCreation(EntityType type, Level level, CallbackInfo ci) {
         this.createInventory();
+    }
+
+    @Inject(method = "defineSynchedData", at = @At("RETURN"))
+    private void snifferplus_defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(HAS_CHEST, false);
+        builder.define(HAS_SCENT_ITEM, false);
+        builder.define(IS_SADDLED, false);
     }
 
     @Inject(method = "mobInteract", at = @At("RETURN"), cancellable = true)
@@ -118,7 +123,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
 
         if (this.hasChest()) {
             ServerLevel serverLevel = (ServerLevel)this.level();
-            LootTable lootTable = serverLevel.getServer().getLootData().getLootTable(BuiltInLootTables.SNIFFER_DIGGING);
+            LootTable lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(BuiltInLootTables.SNIFFER_DIGGING);
             LootParams lootParams = new LootParams.Builder(serverLevel).withParameter(LootContextParams.ORIGIN, this.getHeadPosition()).withParameter(LootContextParams.THIS_ENTITY, this).create(LootContextParamSets.GIFT);
             ObjectArrayList<ItemStack> list = lootTable.getRandomItems(lootParams);
             BlockPos blockPos = this.getHeadBlock();
@@ -143,10 +148,12 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         cir.setReturnValue(Brain.provider(MEMORY_TYPES, SENSOR_TYPES));
     }
 
-    @Inject(method = "getPassengerAttachmentPoint", at = @At("HEAD"), cancellable = true)
-    private void snifferplus_getRidingOffsetDigging(Entity $$0, EntityDimensions $$1, float $$2, CallbackInfoReturnable<Vector3f> cir) {
+    @Override
+    protected Vec3 getPassengerAttachmentPoint(Entity entity, EntityDimensions dimensions, float partialTick) {
         if (this.getState().equals(Sniffer.State.DIGGING)) {
-            cir.setReturnValue(new Vector3f(0.0F, 1.3F, 0.0F));
+            return new Vec3(0.0F, 1.3F, 0.0F);
+        } else {
+            return new Vec3(0.0F, dimensions.height() + 0.34375F * partialTick, 0.0F);
         }
     }
 
@@ -219,11 +226,11 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         super.addAdditionalSaveData(tag);
 
         if (!this.inventory.getItem(0).isEmpty()) {
-            tag.put("SaddleItem", this.inventory.getItem(0).save(new CompoundTag()));
+            tag.put("SaddleItem", this.inventory.getItem(0).save(this.registryAccess()));
         }
 
         if (!this.inventory.getItem(1).isEmpty()) {
-            tag.put("ScentItem", this.inventory.getItem(1).save(new CompoundTag()));
+            tag.put("ScentItem", this.inventory.getItem(1).save(this.registryAccess()));
         }
 
         tag.putBoolean("Chested", this.hasChest());
@@ -235,7 +242,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
                 if (!$$3.isEmpty()) {
                     CompoundTag $$4 = new CompoundTag();
                     $$4.putByte("Slot", (byte)$$2);
-                    $$3.save($$4);
+                    $$3.save(this.registryAccess(), $$4);
                     $$1.add($$4);
                 }
             }
@@ -249,14 +256,14 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         super.readAdditionalSaveData(tag);
 
         if (tag.contains("SaddleItem", 10)) {
-            ItemStack $$4 = ItemStack.of(tag.getCompound("SaddleItem"));
+            ItemStack $$4 = ItemStack.parse(this.registryAccess(), tag.getCompound("SaddleItem")).orElse(ItemStack.EMPTY);
             if ($$4.is(Items.SADDLE)) {
                 this.inventory.setItem(0, $$4);
             }
         }
 
         if (tag.contains("ScentItem", 10)) {
-            ItemStack scentItem = ItemStack.of(tag.getCompound("ScentItem"));
+            ItemStack scentItem = ItemStack.parse(this.registryAccess(), tag.getCompound("ScentItem")).orElse(ItemStack.EMPTY);
             this.inventory.setItem(1, scentItem);
         }
 
@@ -269,7 +276,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
                 CompoundTag $$3 = $$1.getCompound($$2);
                 int $$4 = $$3.getByte("Slot") & 255;
                 if ($$4 >= 2 && $$4 < this.inventory.getContainerSize()) {
-                    this.inventory.setItem($$4, ItemStack.of($$3));
+                    this.inventory.setItem($$4, ItemStack.parse(this.registryAccess(), $$3).orElse(ItemStack.EMPTY));
                 }
             }
         }
@@ -353,7 +360,7 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
         if (this.inventory != null) {
             for(int i = 0; i < this.inventory.getContainerSize(); ++i) {
                 ItemStack stack = this.inventory.getItem(i);
-                if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack)) {
+                if (!stack.isEmpty() && !EnchantmentHelper.has(stack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP)) {
                     this.spawnAtLocation(stack);
                 }
             }
@@ -424,8 +431,8 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
     }
 
     @Override
-    public void equipSaddle(@Nullable SoundSource source) {
-        this.inventory.setItem(0, new ItemStack(Items.SADDLE));
+    public void equipSaddle(ItemStack stack, @Nullable SoundSource source) {
+        this.inventory.setItem(0, stack);
     }
 
     protected void playChestEquipsSound() {

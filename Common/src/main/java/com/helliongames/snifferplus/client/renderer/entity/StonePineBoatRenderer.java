@@ -22,8 +22,8 @@ import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 
 public class StonePineBoatRenderer extends EntityRenderer<Boat> {
-    private static final ResourceLocation BOAT_TEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/entity/boat/stone_pine.png");
-    private static final ResourceLocation CHEST_BOAT_TEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/entity/chest_boat/stone_pine.png");
+    private static final ResourceLocation BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/boat/stone_pine.png");
+    private static final ResourceLocation CHEST_BOAT_TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/entity/chest_boat/stone_pine.png");
 
     private final boolean hasChest;
     private ListModel<Boat> boatModel;
@@ -62,7 +62,7 @@ public class StonePineBoatRenderer extends EntityRenderer<Boat> {
         poseStack.mulPose(Axis.YP.rotationDegrees(90.0f));
         this.boatModel.setupAnim(boat, g, 0.0f, -0.1f, 0.0f, 0.0f);
         VertexConsumer vertexConsumer = multiBufferSource.getBuffer(this.boatModel.renderType(this.hasChest ? CHEST_BOAT_TEXTURE : BOAT_TEXTURE));
-        this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
+        this.boatModel.renderToBuffer(poseStack, vertexConsumer, i, OverlayTexture.NO_OVERLAY);
         if (!boat.isUnderWater()) {
             VertexConsumer vertexConsumer2 = multiBufferSource.getBuffer(RenderType.waterMask());
             if (this.boatModel instanceof WaterPatchModel waterPatchModel) {

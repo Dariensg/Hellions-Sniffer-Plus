@@ -39,17 +39,15 @@ public abstract class MixinSnifferAi {
 
                 return super.checkExtraStartConditions(level, mob) && !(((SnifferAccess) sniffer).hasScentItem() && sniffer.isVehicle());
             }
-        }, new AnimalPanic(2.0f){
+        }, new AnimalPanic<Sniffer>(2.0f){
 
             @Override
-            protected void start(ServerLevel serverLevel, PathfinderMob pathfinderMob, long l) {
-                Sniffer sniffer = (Sniffer) pathfinderMob;
-
+            protected void start(ServerLevel serverLevel, Sniffer sniffer, long l) {
                 sniffer.getBrain().eraseMemory(MemoryModuleType.SNIFFER_DIGGING);
                 sniffer.getBrain().eraseMemory(MemoryModuleType.SNIFFER_SNIFFING_TARGET);
                 sniffer.transitionTo(Sniffer.State.IDLING);
 
-                super.start(serverLevel, pathfinderMob, l);
+                super.start(serverLevel, sniffer, l);
             }
         }, new MoveToTargetSink(10000, 15000), new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS)));
         ci.cancel();
