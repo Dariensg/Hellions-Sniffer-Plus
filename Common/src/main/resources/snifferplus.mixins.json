@@ -11,7 +11,6 @@
     "MixinBlockStateBase",
     "MixinBoat",
     "MixinLivingEntity",
-    "MixinOverworldBiomeBuilder",
     "MixinServerPlayer",
     "MixinSniffer",
     "MixinSnifferAi",
