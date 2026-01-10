@@ -99,6 +99,7 @@ processResources {
             'hellionsapi_projectid'        : hellionsapi_projectid,
             'hellionsapi_fabric'           : hellionsapi_fabric,
             'hellionsapi_neoforge'         : hellionsapi_neoforge,
+            'hellionsapi_version_range'    : hellionsapi_version_range,
             'credits'                      : credits,
             'java_version'                 : java_version
     ]

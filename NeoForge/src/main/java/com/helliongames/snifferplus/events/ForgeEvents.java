@@ -1,7 +1,7 @@
 package com.helliongames.snifferplus.events;
 
+import com.helliongames.hellionsapi.registration.holders.BlockDataHolder;
 import com.helliongames.snifferplus.platform.ForgeStrippableBlockHelper;
-import com.helliongames.snifferplus.registration.util.RegistryObject;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -10,11 +10,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber
 public class ForgeEvents {
 
     @SubscribeEvent
@@ -26,17 +26,15 @@ public class ForgeEvents {
 
         if (!event.getEntity().getItemInHand(event.getHand()).is(ItemTags.AXES)) return;
 
-        for (RegistryObject<Block> blockRegistryObject : ForgeStrippableBlockHelper.strippableBlockMap.keySet()) {
-            if (blockRegistryObject.get().equals(target)) {
+        for (BlockDataHolder<Block> blockHolder : ForgeStrippableBlockHelper.strippableBlockMap.keySet()) {
+            if (blockHolder.get().equals(target)) {
                 Player player = event.getEntity();
                 level.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (!level.isClientSide) {
-                    level.setBlock(pos, ForgeStrippableBlockHelper.strippableBlockMap.get(blockRegistryObject).get().withPropertiesOf(targetBlockState), 11);
-                    if (player != null) {
-                        event.getItemStack().hurtAndBreak(1, player, (usingPlayer) -> {
-                            usingPlayer.broadcastBreakEvent(event.getHand());
-                        });
-                    }
+                    level.setBlock(pos, ForgeStrippableBlockHelper.strippableBlockMap.get(blockHolder).get().withPropertiesOf(targetBlockState), 11);
+                    event.getItemStack().hurtAndBreak(1, player, (usingPlayer) -> {
+                        usingPlayer.broadcastBreakEvent(event.getHand());
+                    });
                 }
                 return;
             }

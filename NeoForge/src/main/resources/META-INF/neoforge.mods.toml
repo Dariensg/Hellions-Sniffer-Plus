@@ -12,6 +12,12 @@ license = "${license}" # Review your options at https://choosealicense.com/.
     credits = "${credits}" #optional
     authors = "${mod_author}" #optional
     description = '''${description}''' #mandatory (Supports multiline text)
+[[dependencies.${mod_id}]]
+    modId = "hellionsapi"
+    mandatory = true
+    versionRange = "${hellionsapi_version_range}"
+    ordering = "BEFORE"
+    side = "BOTH"
 [[dependencies.${mod_id}]] #optional
     modId = "forge" #mandatory
     mandatory = true #mandatory
