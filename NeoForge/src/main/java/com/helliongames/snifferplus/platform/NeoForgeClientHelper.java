@@ -11,17 +11,17 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(modid = "snifferplus", bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class ForgeClientHelper implements IClientHelper {
+@EventBusSubscriber(modid = "snifferplus", value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+public class NeoForgeClientHelper implements IClientHelper {
     private static final Map<ModelLayerLocation, Supplier<LayerDefinition>> modelLayers = new HashMap<>();
     private static final Map<EntityType, EntityRendererProvider> entityRenderers = new HashMap<>();
 

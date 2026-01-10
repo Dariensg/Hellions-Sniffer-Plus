@@ -4,7 +4,6 @@ import com.helliongames.snifferplus.Constants;
 import com.helliongames.snifferplus.platform.services.IBlockSetTypeHelper;
 import com.helliongames.snifferplus.platform.services.IPacketHelper;
 import com.helliongames.snifferplus.platform.services.IPlatformHelper;
-import com.helliongames.snifferplus.platform.services.ISpawnPlacementHelper;
 import com.helliongames.snifferplus.platform.services.IStrippableBlockHelper;
 import com.helliongames.snifferplus.platform.services.IWoodTypeHelper;
 
@@ -15,8 +14,6 @@ public class Services {
     public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
 
     public static final IPacketHelper PACKET_HELPER = load(IPacketHelper.class);
-
-    public static final ISpawnPlacementHelper SPAWN_PLACEMENT_HELPER = load(ISpawnPlacementHelper.class);
 
     public static final IBlockSetTypeHelper BLOCK_SET_TYPE_HELPER = load(IBlockSetTypeHelper.class);
 
