@@ -53,6 +53,7 @@ import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -71,12 +72,18 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
 
     @Shadow protected abstract Sniffer.State getState();
 
+    @Unique
     protected SnifferContainer inventory;
 
+    @Unique
     private static final EntityDataAccessor<Boolean> HAS_CHEST = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
+    @Unique
     private static final EntityDataAccessor<Boolean> HAS_SCENT_ITEM = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
+    @Unique
     private static final EntityDataAccessor<Boolean> IS_SADDLED = SynchedEntityData.defineId(Sniffer.class, EntityDataSerializers.BOOLEAN);
+    @Unique
     private static final List<SensorType<? extends Sensor<? super Sniffer>>> SENSOR_TYPES = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, SensorType.NEAREST_PLAYERS, SensorType.SNIFFER_TEMPTATIONS);
+    @Unique
     private static final List<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, SnifferPlusMemoryModules.OUTPOST_LOCATION.get(), MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.IS_PANICKING, MemoryModuleType.SNIFFER_SNIFFING_TARGET, MemoryModuleType.SNIFFER_DIGGING, MemoryModuleType.SNIFFER_HAPPY, MemoryModuleType.SNIFF_COOLDOWN, MemoryModuleType.SNIFFER_EXPLORED_POSITIONS, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.BREED_TARGET, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED);
 
     protected MixinSniffer(EntityType<? extends LivingEntity> $$0, Level $$1) {
@@ -235,19 +242,19 @@ public abstract class MixinSniffer extends LivingEntity implements SnifferAccess
 
         tag.putBoolean("Chested", this.hasChest());
         if (this.hasChest()) {
-            ListTag $$1 = new ListTag();
+            ListTag listTag = new ListTag();
 
-            for(int $$2 = 2; $$2 < this.inventory.getContainerSize(); ++$$2) {
-                ItemStack $$3 = this.inventory.getItem($$2);
-                if (!$$3.isEmpty()) {
-                    CompoundTag $$4 = new CompoundTag();
-                    $$4.putByte("Slot", (byte)$$2);
-                    $$3.save(this.registryAccess(), $$4);
-                    $$1.add($$4);
+            for(int i = 2; i < this.inventory.getContainerSize(); ++i) {
+                ItemStack stack = this.inventory.getItem(i);
+                if (!stack.isEmpty()) {
+                    CompoundTag itemTag = new CompoundTag();
+                    itemTag.putByte("Slot", (byte)i);
+                    stack.save(this.registryAccess(), itemTag);
+                    listTag.add(itemTag);
                 }
             }
 
-            tag.put("Items", $$1);
+            tag.put("Items", listTag);
         }
     }
 

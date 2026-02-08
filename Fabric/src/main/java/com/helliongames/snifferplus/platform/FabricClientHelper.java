@@ -50,15 +50,13 @@ public class FabricClientHelper implements IClientHelper {
             int size = payload.size();
             int entityId = payload.entityId();
 
-            context.client().execute(() -> {
-                Entity entity = context.player().level().getEntity(entityId);
-                if (entity instanceof Sniffer sniffer) {
-                    SimpleContainer simpleContainer = new SimpleContainer(size);
-                    SnifferInventoryMenu snifferMenu = new SnifferInventoryMenu(containerId, context.player().getInventory(), simpleContainer, sniffer);
-                    context.player().containerMenu = snifferMenu;
-                    Minecraft.getInstance().setScreen(new SnifferInventoryScreen(snifferMenu, context.player().getInventory(), sniffer));
-                }
-            });
+            Entity entity = context.player().level().getEntity(entityId);
+            if (entity instanceof Sniffer sniffer) {
+                SimpleContainer simpleContainer = new SimpleContainer(size);
+                SnifferInventoryMenu snifferMenu = new SnifferInventoryMenu(containerId, context.player().getInventory(), simpleContainer, sniffer);
+                context.player().containerMenu = snifferMenu;
+                Minecraft.getInstance().setScreen(new SnifferInventoryScreen(snifferMenu, context.player().getInventory(), sniffer));
+            }
         });
     }
 }
