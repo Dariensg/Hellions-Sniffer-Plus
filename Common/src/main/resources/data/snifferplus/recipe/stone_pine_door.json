@@ -1,18 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "wooden_slab",
+  "category": "redstone",
+  "group": "wooden_door",
   "key": {
     "#": {
       "item": "snifferplus:stone_pine_planks"
     }
   },
   "pattern": [
-    "###"
+    "##",
+    "##",
+    "##"
   ],
   "result": {
-    "count": 6,
-    "item": "snifferplus:stone_pine_slab"
+    "count": 3,
+    "id": "snifferplus:stone_pine_door"
   },
   "show_notification": true
 }

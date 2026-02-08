@@ -1,17 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "redstone",
-  "group": "wooden_pressure_plate",
+  "category": "building",
+  "group": "wooden_slab",
   "key": {
     "#": {
       "item": "snifferplus:stone_pine_planks"
     }
   },
   "pattern": [
-    "##"
+    "###"
   ],
   "result": {
-    "item": "snifferplus:stone_pine_pressure_plate"
+    "count": 6,
+    "id": "snifferplus:stone_pine_slab"
   },
   "show_notification": true
 }

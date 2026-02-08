@@ -1,20 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "wooden_stairs",
+  "category": "misc",
+  "group": "wooden_fence",
   "key": {
     "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
       "item": "snifferplus:stone_pine_planks"
     }
   },
   "pattern": [
-    "#  ",
-    "## ",
-    "###"
+    "W#W",
+    "W#W"
   ],
   "result": {
-    "count": 4,
-    "item": "snifferplus:stone_pine_stairs"
+    "count": 3,
+    "id": "snifferplus:stone_pine_fence"
   },
   "show_notification": true
 }
