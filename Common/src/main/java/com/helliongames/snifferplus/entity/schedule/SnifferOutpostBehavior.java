@@ -59,7 +59,7 @@ public class SnifferOutpostBehavior extends Behavior<Sniffer> {
 
         if (posStructurePair != null) {
             sniffer.getBrain().setMemory(SnifferPlusMemoryModules.OUTPOST_LOCATION.get(), posStructurePair.getFirst());
-            sniffer.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(posStructurePair.getFirst(), 1.5F, 20));
+            sniffer.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(posStructurePair.getFirst(), 2.5F, 20));
         }
     }
 
