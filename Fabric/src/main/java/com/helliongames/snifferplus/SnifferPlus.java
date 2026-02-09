@@ -5,7 +5,6 @@ import com.helliongames.snifferplus.registration.SnifferPlusItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.impl.content.registry.CompostingChanceRegistryImpl;
-import net.minecraft.world.level.block.ComposterBlock;
 
 public class SnifferPlus implements ModInitializer {
 

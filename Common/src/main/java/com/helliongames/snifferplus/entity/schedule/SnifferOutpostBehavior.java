@@ -2,6 +2,7 @@ package com.helliongames.snifferplus.entity.schedule;
 
 import com.helliongames.snifferplus.access.SnifferAccess;
 import com.helliongames.snifferplus.registration.SnifferPlusMemoryModules;
+import com.helliongames.snifferplus.registration.SnifferPlusTags;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -17,8 +18,11 @@ import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class SnifferOutpostBehavior extends Behavior<Sniffer> {
 
@@ -54,7 +58,11 @@ public class SnifferOutpostBehavior extends Behavior<Sniffer> {
         sniffer.transitionTo(Sniffer.State.SEARCHING);
 
         Registry<Structure> structureRegistry = serverLevel.registryAccess().registryOrThrow(Registries.STRUCTURE);
-        HolderSet<Structure> structure = HolderSet.direct(structureRegistry.getHolderOrThrow(BuiltinStructures.PILLAGER_OUTPOST));
+        Iterable<Holder<Structure>> structureIterable = structureRegistry.getTagOrEmpty(SnifferPlusTags.SNIFFER_OUTPOSTS);
+
+        List<Holder<Structure>> list = StreamSupport.stream(structureIterable.spliterator(), false).toList();
+        HolderSet<Structure> structure = HolderSet.direct(list);
+
         Pair<BlockPos, Holder<Structure>> posStructurePair = serverLevel.getChunkSource().getGenerator().findNearestMapStructure(serverLevel, structure, sniffer.blockPosition(), 100, false);
 
         if (posStructurePair != null) {
