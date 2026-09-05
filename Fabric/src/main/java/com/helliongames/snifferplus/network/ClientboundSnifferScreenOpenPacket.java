@@ -2,10 +2,7 @@ package com.helliongames.snifferplus.network;
 
 import com.helliongames.snifferplus.Constants;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.PacketListener;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.PacketType;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 

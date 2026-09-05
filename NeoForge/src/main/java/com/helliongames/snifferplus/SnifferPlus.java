@@ -8,14 +8,18 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 
 @Mod(Constants.MOD_ID)
 public class SnifferPlus {
     
     public SnifferPlus(IEventBus modBus) {
-        modBus.addListener(this::clientSetup);
         modBus.addListener(this::commonSetup);
-        modBus.addListener(ClientPacketHandler::register);
+
+        if (FMLEnvironment.dist.isClient()) {
+            modBus.addListener(this::clientSetup);
+            modBus.addListener(ClientPacketHandler::register);
+        }
 
         CommonClass.init();
     }

@@ -4,16 +4,7 @@ import com.helliongames.hellionsapi.registration.holders.ItemDataHolder;
 import com.helliongames.hellionsapi.registration.registries.HellionsAPIItemRegistry;
 import com.helliongames.snifferplus.Constants;
 import com.helliongames.snifferplus.items.StonePineBoatItem;
-import com.helliongames.snifferplus.registration.util.RegistrationProvider;
-import com.helliongames.snifferplus.registration.util.RegistryObject;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemNameBlockItem;
-import net.minecraft.world.item.SignItem;
-import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.item.*;
 
 public class SnifferPlusItems {
 

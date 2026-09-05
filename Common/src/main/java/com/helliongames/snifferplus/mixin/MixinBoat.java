@@ -1,8 +1,8 @@
 package com.helliongames.snifferplus.mixin;
 
-import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import com.helliongames.snifferplus.entity.StonePineBoat;
 import com.helliongames.snifferplus.entity.StonePineChestBoat;
+import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;

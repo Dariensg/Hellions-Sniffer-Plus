@@ -22,7 +22,6 @@
     "TrapDoorBlockAccessor"
   ],
   "client": [
-    "MixinBlockColors",
     "MixinItemColors",
     "MixinSnifferRenderer"
   ],

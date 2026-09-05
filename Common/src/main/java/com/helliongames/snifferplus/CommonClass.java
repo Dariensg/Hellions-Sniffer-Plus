@@ -2,15 +2,7 @@ package com.helliongames.snifferplus;
 
 import com.helliongames.hellionsapi.HellionsAPICommon;
 import com.helliongames.snifferplus.platform.Services;
-import com.helliongames.snifferplus.registration.SnifferPlusBlocks;
-import com.helliongames.snifferplus.registration.SnifferPlusEntities;
-import com.helliongames.snifferplus.registration.SnifferPlusItems;
-import com.helliongames.snifferplus.registration.SnifferPlusMemoryModules;
-import com.helliongames.snifferplus.registration.SnifferPlusTabs;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.level.levelgen.Heightmap;
+import com.helliongames.snifferplus.registration.*;
 
 public class CommonClass {
 
